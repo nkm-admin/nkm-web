@@ -1,0 +1,12 @@
+// 滚动条颜色
+::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+  background: #e4e4e4;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: $color-theme;
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
+}

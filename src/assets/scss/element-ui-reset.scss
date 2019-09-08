@@ -1,0 +1,104 @@
+/* theme color */
+$--color-primary: $color-theme;
+
+/* icon font path, required */
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+
+$--color-success: $color-success;
+$--color-warning: $color-warning;
+$--color-danger: $color-error;
+// $--color-info: $color-info;
+
+@import "~element-ui/packages/theme-chalk/src/index";
+
+// 菜单
+.el-submenu [class^="el-icon-"],
+.el-submenu [class^="x-icon-"] {
+  vertical-align: middle;
+  margin-right: 5px;
+  width: 24px;
+  text-align: center;
+  font-size: 18px;
+}
+
+// 卡片组件
+.el-card {
+  .el-card__header {
+    padding: 15px 20px;
+    font-size: $font-size-large;
+  }
+}
+
+// 消息提示组件
+.el-message {
+  min-width: 300px;
+  box-sizing: border-box;
+  padding: 10px 15px;
+  background: #fff;
+  border: 0;
+  border-radius: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+
+  &.el-message--info {
+    .el-icon-info {
+      color: $color-info;
+    }
+  }
+
+  .el-message__content {
+    color: $color-sub-content;
+  }
+}
+
+.el-button {
+  font-weight: normal;
+
+  &.el-button--primary {
+    background-color: #ecf5ff;
+    border-color: #d9ecff;
+    color: #409eff;
+  }
+
+  &.el-button--success {
+    background-color: #f0f9eb;
+    border-color: #e1f3d8;
+    color: #67c23a;
+  }
+
+  &.el-button--warning {
+    background-color: #fdf6ec;
+    border-color: #faecd8;
+    color: #e6a23c;
+  }
+
+  &.el-button--danger {
+    background-color: #fef0f0;
+    border-color: #fde2e2;
+    color: #f56c6c;
+  }
+}
+
+.el-dialog__wrapper {
+  .el-dialog {
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    max-height: 90%;
+    margin: 0 !important;
+    overflow: hidden;
+    transform: translate(-50%, -50%);
+  }
+
+  .el-dialog__header {
+    border-bottom: 1px solid $color-border;
+  }
+
+  .el-dialog__footer {
+    border-top: 1px solid $color-border;
+  }
+
+  .el-dialog__body {
+    overflow-y: scroll;
+  }
+}

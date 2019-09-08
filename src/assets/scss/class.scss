@@ -1,0 +1,109 @@
+.w-f-100 {
+  width: 100%;
+}
+.h-f-100 {
+  height: 100%;
+}
+.min-h-100 {
+  min-height: 100%;
+}
+
+// 浮动
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.clearfix:after {
+  content: "";
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+// 文字居中
+.t-left {
+  text-align: left;
+}
+.t-center {
+  text-align: center;
+}
+.t-right {
+  text-align: right;
+}
+.t-justify {
+  text-align: justify;
+}
+.v-middle {
+  vertical-align: middle;
+}
+
+.flex {
+  display: flex;
+}
+
+.f-a-center {
+  align-items: center;
+}
+
+.f-j-justify {
+  justify-content: space-between;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+// flex居中
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.o-y-scroll {
+  overflow-y: scroll;
+}
+
+// 边距
+.m-t-15px {
+  margin-top: 15px;
+}
+.m-r-5px {
+  margin-right: 5px;
+}
+.m-l-10px {
+  margin-left: 10px;
+}
+.m-l-15px {
+  margin-left: 15px;
+}
+.m-b-10px {
+  margin-bottom: 10px;
+}
+.m-b-15px {
+  margin-bottom: 15px;
+}
+
+.c-pointer {
+  cursor: pointer;
+}
+
+.f-s-18px {
+  font-size: 18px;
+}
+
+// 提示颜色
+.c-theme {
+  color: $color-theme;
+}
+.c-success {
+  color: $color-success;
+}
+.c-warning {
+  color: $color-warning;
+}
+.c-error {
+  color: $color-error;
+}
