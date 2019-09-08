@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import { formatDate } from '@/utils'
+import DateJS from '@/utils/date'
 Vue.filter('formatDate', value => {
   if (!value) return ''
-  return formatDate(new Date(value))
+  return DateJS(new Date(value)).format()
 })
