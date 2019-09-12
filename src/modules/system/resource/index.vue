@@ -65,8 +65,8 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="地址" prop="url">
-          <el-input v-model="formModel.url"></el-input>
+        <el-form-item label="地址" prop="path">
+          <el-input v-model="formModel.path"></el-input>
         </el-form-item>
         <el-form-item label="图标" prop="icon">
           <el-select v-model="formModel.icon" clearable filterable class="w-f-100">
@@ -139,7 +139,7 @@ export default {
         code: '',
         parentId: '',
         parentCode: '',
-        url: '',
+        path: '',
         icon: '',
         enable: 1,
         sort: 0,
@@ -237,7 +237,7 @@ export default {
         code: '',
         parentId: '',
         parentCode: '',
-        url: '',
+        path: '',
         icon: '',
         enable: 1,
         sort: 0,

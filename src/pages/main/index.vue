@@ -22,6 +22,7 @@
                 <div class="user-name">
                   <img :src="userInfo.avatar" class="avatar" width="30" alt="">
                   <span>{{ userInfo.displayName }}</span>
+                  <i class="m-l-5px el-icon-arrow-down"></i>
                 </div>
                 <template #dropdown>
                   <el-dropdown-menu>
