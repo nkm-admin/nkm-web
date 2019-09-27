@@ -34,6 +34,7 @@ export default {
   data () {
     return {
       svgCaptcha: '',
+      svgCaptchaText: '',
       captchaToken: '',
       captchaErrorMsg: '',
       formModel: {
@@ -63,8 +64,8 @@ export default {
         captcha: [
           { required: true, message: '请输入验证码', trigger: 'blur' },
           {
-            validator (rule, value, cb) {
-              return value.length < 4 ? cb('验证码至少为4位') : cb()
+            validator: (rule, value, cb) => {
+              return value !== this.svgCaptchaText ? cb('验证码输入有误') : cb()
             },
             trigger: 'blur'
           }
@@ -79,18 +80,19 @@ export default {
     ...mapActions('authen', ['login', 'getCaptcha']),
     // 初始化，获取验证码
     async init () {
-      let { token, image } = await this.getCaptcha()
+      let { token, image, text } = await this.getCaptcha()
       this.svgCaptcha = image
       this.captchaToken = token
+      this.svgCaptchaText = text.toLocaleLowerCase()
     },
 
     // 切换验证码
     async _getCaptcha () {
-      let { image } = await this.getCaptcha({
-        token: this.captchaToken,
-        v: Math.random()
+      let { image, text } = await this.getCaptcha({
+        token: this.captchaToken
       })
       this.svgCaptcha = image
+      this.svgCaptchaText = text.toLocaleLowerCase()
     },
 
     _login () {
@@ -106,7 +108,10 @@ export default {
               await this.$store.dispatch('/system/dictionary/getTree')
               window.common.hideLoading()
               this.$router.replace({ name: 'Dashboard' })
-            }).catch(error => this._valid(error))
+            }).catch(error => {
+              this._getCaptcha()
+              this._valid(error)
+            })
           } catch (error) {
             this._valid(error)
           }
