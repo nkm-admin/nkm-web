@@ -26,7 +26,7 @@
             <h2 class="title f-s-18px">{{ title }}</h2>
           </template>
           <template>
-            <el-form v-if="title === '基本设置'" ref="infoForm" :model="formModel" :rules="formRules">
+            <el-form v-show="title === '基本设置'" ref="infoForm" :model="formModel" :rules="formRules">
               <el-row :gutter="30">
                 <el-col :span="12">
                   <el-form-item label="昵称" prop="displayName">
@@ -42,7 +42,7 @@
               </el-form-item>
             </el-form>
 
-            <el-form v-else-if="title === '安全设置'" ref="security" :model="securityForm" :rules="securityRules">
+            <el-form v-show="title === '安全设置'" ref="security" :model="securityForm" :rules="securityRules">
               <el-row>
                 <el-col :span="12">
                   <el-form-item label="新密码" prop="password">
@@ -143,6 +143,8 @@ export default {
     _toggle (i) {
       this.active = i
       this.title = this.settingList[i]
+      this.$refs.infoForm.resetFields()
+      this.$refs.security.resetFields()
     },
 
     // 更新基本信息
