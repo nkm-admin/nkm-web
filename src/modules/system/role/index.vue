@@ -34,19 +34,29 @@
       </div>
       <div class="tree">
         <el-form label-width="100px">
-          <el-form-item label="选择资源">
+          <el-form-item>
+            <template #label>
+              <span>选择资源 </span>
+              <el-tooltip placement="top" content="点击复选框全选；点击名称只选中自己，不关联子级">
+                <i class="el-icon-question"></i>
+              </el-tooltip>
+            </template>
             <el-tree
               ref="tree"
               node-key="id"
               :data="tree"
               show-checkbox
               highlight-current
-              :check-on-click-node="false"
-              :default-expand-all="false"
+              default-expand-all
+              :check-on-click-node="true"
               :auto-expand-parent="true"
-              :expand-on-click-node="true"
+              :expand-on-click-node="false"
               :check-strictly="true"
               :props="defaultProps"
+              :render-content="_renderContent"
+              @node-click="_nodeClick"
+              @check-change="_checkNode"
+              @check="_checkboxClick"
             >
             </el-tree>
           </el-form-item>
@@ -69,6 +79,8 @@ export default {
         children: 'children',
         label: 'name'
       },
+      isTreeNodeClick: true,
+      checkNodes: [],
       // 当前选中的角色
       currentRole: {
         name: '新增角色'
@@ -109,25 +121,14 @@ export default {
     },
 
     _eidt (data) {
+      this.isTreeNodeClick = false
       this.$refs.tree.setCheckedKeys([])
       this.currentRole = data
       this.formModel.name = data.name
       this.formModel.code = data.code
       // 转换角色资源code
-      const keys = data.permission.split(',').map(item => +item)
-      // 解决element-ui tree全选问题，如果有父级id会默认选中所有的子级，解决方案删除父级id
-      // const deepDelParentId = arr => {
-      //   arr.map(item => {
-      //     if (item.children.length) {
-      //       const index = keys.findIndex(v => v === item.id)
-      //       if (index !== -1) keys.splice(index, 1)
-      //       deepDelParentId(item.children)
-      //     }
-      //   })
-      //   return arr
-      // }
-      // deepDelParentId(this.tree)
-      this.$refs.tree.setCheckedKeys(keys)
+      this.checkNodes = data.permission.split(',').map(item => +item)
+      this.$refs.tree.setCheckedKeys(this.checkNodes)
     },
 
     async _del () {
@@ -153,26 +154,80 @@ export default {
     _save () {
       this.$refs.form.validate(async valid => {
         if (valid) {
-          const ids = this.$refs.tree.getCheckedNodes(false, true).map(item => item.id).join(',')
           window.common.showLoading('保存中...')
           await this.saveRole({
             ...this.formModel,
-            ids,
+            ids: this.checkNodes.join(','),
             id: this.currentRole.id
           })
           this.init()
           this._reset()
           window.common.hideLoading()
+          window.common.showMessage({
+            type: 'success',
+            message: '保存成功'
+          })
         }
       })
     },
 
     _reset () {
+      this.checkNodes = []
+      this.isTreeNodeClick = true
       this.$refs.form.resetFields()
       this.$refs.tree.setCheckedKeys([])
       this.currentRole = {
         name: '新增角色'
       }
+    },
+
+    // 节点点击选中自己
+    _nodeClick ({ id }) {
+      this.isTreeNodeClick = false
+      const index = this.checkNodes.indexOf(id)
+      index !== -1 ? this.checkNodes.splice(index, 1) : this.checkNodes.push(id)
+      this.$refs.tree.setCheckedKeys(this.checkNodes)
+    },
+
+    _checkboxClick () {
+      this.isTreeNodeClick = true
+    },
+
+    // 点击复选框选择子级+自己
+    _checkNode ({ id, children }, checked) {
+      if (!this.isTreeNodeClick) return
+      let result = [id]
+      const getChildId = arr => {
+        arr.map(item => {
+          if (Array.isArray(item.children)) getChildId(item.children)
+          result.push(item.id)
+        })
+      }
+      getChildId(children)
+      if (checked) {
+        this.checkNodes = [...new Set([...this.checkNodes, ...result])]
+      } else {
+        result.forEach(item => {
+          const index = this.checkNodes.indexOf(item)
+          if (index !== -1) {
+            this.checkNodes.splice(index, 1)
+          }
+        })
+      }
+      this.$refs.tree.setCheckedKeys(this.checkNodes)
+    },
+
+    _renderContent (h, { node }) {
+      return (
+        <div class="custom-tree-node" style="flex: 1;">
+          <div
+            slot="reference"
+            class={ ['tree-item', 'flex', `level-${node.level}`] }
+          >
+            <span class="tree-label flex-1">&nbsp;{ node.label }</span>
+          </div>
+        </div>
+      )
     }
   }
 }
