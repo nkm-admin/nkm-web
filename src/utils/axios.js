@@ -48,12 +48,20 @@ axios.interceptors.response.use(response => {
       message: response.data.message,
       type: 'error',
       onClose: () => {
-        // 登录已过期
-        if (response.data.code === 'A1004') {
-          router.push({
-            name: 'Login'
-          })
+        /* eslint-disable */
+        switch (response.data.code) {
+          // 登录已过期
+          case 'A1004':
+            router.push({
+              name: 'Login'
+            })
+            break
+          // 验证码请求已失效
+          case 'A1012':
+            location.reload()
+            break
         }
+        /* eslint-disable */
       }
     })
     return Promise.reject(response.data)
