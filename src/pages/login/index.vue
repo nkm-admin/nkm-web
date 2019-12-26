@@ -85,7 +85,6 @@ export default {
       this.captchaToken = token
       this.svgCaptchaText = text.toLocaleLowerCase()
     },
-
     // 切换验证码
     async _getCaptcha () {
       let { image, text } = await this.getCaptcha({
@@ -94,37 +93,28 @@ export default {
       this.svgCaptcha = image
       this.svgCaptchaText = text.toLocaleLowerCase()
     },
-
     _login () {
       this.$refs.form.validate(async valid => {
         if (valid) {
-          try {
-            window.common.showLoading('登录中...')
-            this.login({
-              ...this.formModel,
-              userAgent: navigator.userAgent
-            }).then(async () => {
-              window.common.showLoading('正在加载数据字典...')
-              await this.$store.dispatch('/system/dictionary/getTree')
-              window.common.hideLoading()
-              this.$router.replace({ name: 'Dashboard' })
-            }).catch(error => {
-              this._getCaptcha()
-              this._valid(error)
-            })
-          } catch (error) {
+          window.common.showLoading('登录中...')
+          this.login({
+            ...this.formModel,
+            userAgent: navigator.userAgent
+          }).then(async () => {
+            window.common.showLoading('正在加载数据字典...')
+            await this.$store.dispatch('/system/dictionary/getTree')
+            window.common.hideLoading()
+            this.$router.replace({ name: 'Dashboard' })
+          }).catch(error => {
             this._valid(error)
-          }
+          })
         }
       })
     },
-
     _valid ({ code, message }) {
       if (code === 'A1011') {
         this.captchaErrorMsg = message
         this._getCaptcha()
-      } else if (code === 'A1012') {
-        location.reload()
       }
     }
   }
@@ -138,7 +128,6 @@ export default {
   width: 100%;
   height: 100%;
   background-color: $color-background;
-
   .form-wrapper {
     width: 350px;
     padding: 20px;
@@ -146,7 +135,6 @@ export default {
     border-radius: $border-radius;
     box-shadow: $box-shadow;
   }
-
   .logo {
     margin-bottom: 10px;
     padding-bottom: 10px;
