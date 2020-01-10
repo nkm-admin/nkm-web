@@ -2,16 +2,18 @@
   <div class="flex container h-f-100">
     <div class="tree-wrapper h-f-100 o-y-scroll">
       <el-button type="primary" icon="el-icon-plus" class="m-b-15px" @click="_add">新增节点</el-button>
-      <el-button-group class="m-b-15px">
-        <el-button
-          v-for="(item, index) in btnGroup"
-          :key="index"
-          :type="currentBtn === index ? 'primary' : ''"
-          @click="_toggleTree(index, item.code)"
-        >
-          {{ item.label }}
-        </el-button>
-      </el-button-group>
+      <div>
+        <el-button-group class="m-b-15px">
+          <el-button
+            v-for="(item, index) in btnGroup"
+            :key="index"
+            :type="currentBtn === index ? 'primary' : ''"
+            @click="_toggleTree(index, item.code)"
+          >
+            {{ item.label }}
+          </el-button>
+        </el-button-group>
+      </div>
       <el-tree
         ref="tree"
         node-key="id"
@@ -293,7 +295,7 @@ $--font-path: '../../../../node_modules/element-ui/lib/theme-chalk/fonts';
   overflow: hidden;
 }
 .tree-wrapper {
-  width: 30%;
+  width: 40%;
   padding: $content-padding;
   box-sizing: border-box;
   border-right: 1px solid $color-border;
