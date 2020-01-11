@@ -102,7 +102,7 @@ export default {
             userAgent: navigator.userAgent
           }).then(async () => {
             window.common.showLoading('正在加载数据字典...')
-            await this.$store.dispatch('/system/dictionary/getTree')
+            await this.$store.dispatch('system/dictionary/getTree')
             window.common.hideLoading()
             this.$router.replace({ name: 'Dashboard' })
           }).catch(error => {
@@ -112,10 +112,8 @@ export default {
       })
     },
     _valid ({ code, message }) {
-      if (code === 'A1011') {
-        this.captchaErrorMsg = message
-        this._getCaptcha()
-      }
+      if (code === 'A1011') this.captchaErrorMsg = message
+      this._getCaptcha()
     }
   }
 }

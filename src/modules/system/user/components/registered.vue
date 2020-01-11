@@ -96,7 +96,7 @@ export default {
     this._loadAvatar()
   },
   methods: {
-    ...mapActions('/system/user', ['registered']),
+    ...mapActions('system/user', ['registered']),
 
     // 加载本地头像图片
     _loadAvatar () {

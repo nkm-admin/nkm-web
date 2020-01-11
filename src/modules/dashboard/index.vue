@@ -14,13 +14,13 @@ export default {
     }
   },
   computed: {
-    ...mapState('/dashboard', ['test'])
+    ...mapState('dashboard', ['test'])
   },
   created () {
     this.init()
   },
   methods: {
-    ...mapActions('/dashboard', ['getTest']),
+    ...mapActions('dashboard', ['getTest']),
     async init () {
       window.common.showLoading('仪表盘数据加载中...')
       await Promise.all([

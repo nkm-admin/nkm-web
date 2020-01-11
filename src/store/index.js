@@ -19,7 +19,7 @@ class StoreModules {
     const context = this.storeModulesContext()
     context.keys().forEach(modulePath => {
       // 按目录名+文件名作为模块名，不包含.store.js后缀
-      const moduleName = modulePath.replace(/\.?((\/[a-z]+)+)\/([a-z]+)?\.store\.js$/i, '$1')
+      const moduleName = modulePath.replace(/\.?((\/[a-z]+)+)\/([a-z]+)?\.store\.js$/i, '$1').replace('/', '')
       const storeModule = context(modulePath).default
       // 是否开启命名空间
       if (storeModule.namespaced !== false) storeModule.namespaced = true

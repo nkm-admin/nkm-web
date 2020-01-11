@@ -86,13 +86,13 @@ export default {
     }
   },
   computed: {
-    ...mapState('/system/dictionary', ['tree'])
+    ...mapState('system/dictionary', ['tree'])
   },
   created () {
     this.init()
   },
   methods: {
-    ...mapActions('/system/dictionary', ['getTree', 'save', 'del']),
+    ...mapActions('system/dictionary', ['getTree', 'save', 'del']),
     async init () {
       window.common.showLoading('数据字典加载中...')
       await this.getTree()

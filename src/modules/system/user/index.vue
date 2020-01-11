@@ -105,7 +105,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('/system/role', {
+    ...mapState('system/role', {
       roleList: state => state.list
     })
   },
@@ -113,7 +113,7 @@ export default {
     this.init()
   },
   methods: {
-    ...mapActions('/system/user', ['getUserList', 'modifyStatus', 'resetPassword', 'allocationRole']),
+    ...mapActions('system/user', ['getUserList', 'modifyStatus', 'resetPassword', 'allocationRole']),
     async init () {
       this.list = await this.getUserList()
       window.common.hideLoading()

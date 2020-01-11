@@ -161,8 +161,8 @@ export default {
     }
   },
   computed: {
-    ...mapState('/system/resource', ['tree']),
-    ...mapGetters('/system/dictionary', ['getDictionary']),
+    ...mapState('system/resource', ['tree']),
+    ...mapGetters('system/dictionary', ['getDictionary']),
     resourceTypeList () {
       return this.getDictionary('system:resource')
     }
@@ -174,7 +174,7 @@ export default {
     })
   },
   methods: {
-    ...mapActions('/system/resource', ['getResourceTree', 'saveResource', 'delResource']),
+    ...mapActions('system/resource', ['getResourceTree', 'saveResource', 'delResource']),
     async init () {
       await this.getResourceTree()
       window.common.hideLoading()

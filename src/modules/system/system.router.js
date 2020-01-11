@@ -12,8 +12,8 @@ export default {
   },
   async beforeEnter (to, name, next) {
     window.common.showLoading('正在加载系统资源...')
-    await store.dispatch('/system/resource/getResourceTree')
-    await store.dispatch('/system/role/getRoleList')
+    await store.dispatch('system/resource/getResourceTree')
+    await store.dispatch('system/role/getRoleList')
     next()
   },
   component: {

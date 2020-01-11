@@ -100,8 +100,8 @@ export default {
     }
   },
   computed: {
-    ...mapState('/system/resource', ['tree']),
-    ...mapState('/system/role', ['list']),
+    ...mapState('system/resource', ['tree']),
+    ...mapState('system/role', ['list']),
     isShowDeleteBtn () {
       return this.formModel.code !== 'systemAdministrator' && this.currentRole.name !== '新增角色'
     }
@@ -110,10 +110,10 @@ export default {
     window.common.hideLoading()
   },
   methods: {
-    ...mapActions('/system/role', ['getRoleList', 'saveRole', 'delRole']),
+    ...mapActions('system/role', ['getRoleList', 'saveRole', 'delRole']),
     async init () {
       // 获取资源树
-      await this.$store.dispatch('/system/resource/getResourceTree')
+      await this.$store.dispatch('system/resource/getResourceTree')
 
       // 获取角色列表
       await this.getRoleList()
