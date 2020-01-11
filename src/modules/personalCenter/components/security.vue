@@ -1,7 +1,7 @@
 <template>
   <div class="security">
     <el-form ref="security" :model="securityForm" :rules="securityRules">
-      <el-row>
+      <el-row :gutter="30">
         <el-col :span="8">
           <el-form-item label="新密码" prop="password">
             <el-input v-model="securityForm.password" type="password"></el-input>
