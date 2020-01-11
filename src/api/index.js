@@ -32,5 +32,17 @@ export default {
     })
   },
 
+  // 上传文件
+  upload (data) {
+    return axios({
+      url: '/upload',
+      headers: {
+        'Content-Type': 'multipart/form-data;'
+      },
+      data,
+      method: 'POST'
+    })
+  },
+
   ...apiArr
 }
