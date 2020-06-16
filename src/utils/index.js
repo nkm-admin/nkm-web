@@ -6,7 +6,7 @@ export const hideLoading = () => store.dispatch('hideLoading')
 
 export const showMessage = config => store.dispatch('showMessage', config)
 
-export const showConfirm = config => store.dispatch('showConfirm', config)
+export const confirm = config => store.dispatch('showConfirm', config)
 
 // 获取查询参数
 export const getQueryParams = params => {

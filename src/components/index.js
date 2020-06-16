@@ -1,7 +1,8 @@
 import Vue from 'vue'
-import './SvgIcon'
-const context = require.context('./', true, /index\.vue$/)
+import './XSvgIcon'
+const context = require.context('./', true, /\.vue$/)
 
 context.keys().forEach(componentPath => {
-  Vue.component(context(componentPath).default.name, context(componentPath).default)
+  const module = context(componentPath)
+  !module.__ignore && module.default && Vue.component(module.default.name, module.default)
 })

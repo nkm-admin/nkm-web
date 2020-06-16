@@ -8,7 +8,7 @@
         <el-input v-model="formModel.displayName"></el-input>
       </el-form-item>
       <el-form-item label="登录密码" prop="password">
-        <el-input v-model="formModel.password" type="password" maxlength="18"></el-input>
+        <el-input v-model="formModel.password" type="password" maxlength="16"></el-input>
       </el-form-item>
       <el-form-item label="邮箱" prop="email">
         <el-input v-model="formModel.email"></el-input>
@@ -84,7 +84,7 @@ export default {
           },
           {
             validator (rule, value, cb) {
-              !matchPassword(value) ? cb('密码格式不正确，只能包含数字、字母和,./!@#$*&等符号') : cb()
+              !matchPassword(value) ? cb('密码格式不正确，只能包含数字、字母和,./!@#$*&-符号') : cb()
             },
             trigger: 'blur'
           }

@@ -13,7 +13,7 @@ module.exports = {
     },
     proxy: {
       [process.env.VUE_APP_BASE_REQUEST_API]: {
-        target: 'http://localhost:3333',
+        target: process.env.PROXY_TARGET,
         changeOrigin: true,
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_REQUEST_API]: process.env.VUE_APP_BASE_REQUEST_API

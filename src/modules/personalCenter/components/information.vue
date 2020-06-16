@@ -91,7 +91,10 @@ export default {
     async _uploadHeadPortrait () {
       try {
         this.uploadLoading = true
-        let { url } = await this.upload({ file: this.file })
+        let [{ url }] = await this.upload({
+          file: this.file,
+          type: 'account'
+        })
         this.uploadLoading = false
         this.formModel.avatar = url
       } catch (error) {

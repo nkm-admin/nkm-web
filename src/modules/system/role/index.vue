@@ -127,12 +127,12 @@ export default {
       this.formModel.name = data.name
       this.formModel.code = data.code
       // 转换角色资源code
-      this.checkNodes = data.permission.split(',').map(item => +item)
+      this.checkNodes = data.permission.map(item => +item)
       this.$refs.tree.setCheckedKeys(this.checkNodes)
     },
 
     async _del () {
-      window.common.showConfirm({
+      window.common.confirm({
         title: '警告',
         message: '确认要删除此角色吗？',
         type: 'warning',
@@ -157,7 +157,7 @@ export default {
           window.common.showLoading('保存中...')
           await this.saveRole({
             ...this.formModel,
-            ids: this.checkNodes.join(','),
+            ids: this.$refs.tree.getCheckedNodes(false, true).map(item => item.id).join(','),
             id: this.currentRole.id
           })
           this.init()

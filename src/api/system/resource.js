@@ -1,17 +1,16 @@
-import axios from '@/utils/axios'
+import request from '@/request'
 export default {
   // 获取资源树
   getResourceTree (data) {
-    return axios({
+    return request({
       url: '/system/resource/tree',
-      method: 'POST',
       data
     })
   },
 
   // 保存资源
   saveResource (data) {
-    return axios({
+    return request({
       url: '/system/resource/save',
       method: 'POST',
       data
@@ -20,7 +19,7 @@ export default {
 
   // 删除资源
   delResource (data) {
-    return axios({
+    return request({
       url: '/system/resource/del',
       method: 'POST',
       data

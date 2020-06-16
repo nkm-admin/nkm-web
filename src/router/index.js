@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from '@/store'
+import { DEFAULT_INDEX_ROUTER, APP_TITLE } from '@/config'
+import { pathToRegexp } from 'path-to-regexp'
 
 Vue.use(Router)
 
@@ -51,29 +53,33 @@ const router = new Router({
 
 // 路由全局拦截-进入页面前
 router.beforeEach((to, from, next) => {
+  // 设置页面标题
+  document.title = to.meta.title || APP_TITLE
+
   if (to.name === 'Login') {
-    next()
-  } else {
-    if (!store.state.authen && to.name !== 'Login') {
-      next({ name: 'Login' })
-    } else {
-      try {
-        const isPermission = store.state.authen.menuUrlList.findIndex(v => v === to.path) === -1
-        if (isPermission && to.name !== 'NoPermissiom' &&  to.name !== 'Login') {
-          window.common.hideLoading()
-          next({ name: 'NoPermissiom' })
-        } else {
-          next()
-          to.meta.loading && to.meta.loading.isShow && window.common.showLoading(to.meta.loading.text || '加载中...')
-        }
-      } catch (error) {
-        next({ name: 'Login' })
-      }
-    }
+    // 如果已经登录跳转至默认首页
+    return store.state.authen.token ? next({ name: DEFAULT_INDEX_ROUTER.name }) : next()
   }
 
-  // 设置页面标题
-  document.title = to.meta.title || 'nkm-admin'
+  if (!store.state.authen) {
+    return next({ name: 'Login' })
+  }
+
+  try {
+    // 判断是否有页面访问权限
+    const isPermission = store.state.authen.menuUrls.findIndex(path => pathToRegexp(path).test(to.path)) === -1
+    if (isPermission && to.name !== 'NoPermissiom') {
+      window.common.hideLoading()
+      return next({ name: 'NoPermissiom' })
+    }
+
+    next()
+    to.meta.loading
+      && to.meta.loading.isShow
+      && window.common.showLoading(to.meta.loading.text || '加载中...')
+  } catch (error) {
+    next({ name: 'Login' })
+  }
 })
 
 export default router

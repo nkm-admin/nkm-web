@@ -1,12 +1,12 @@
 <template>
-  <div class="container">
-    仪表盘
-  </div>
+  <el-dialog v-bind="$attrs" v-on="$listeners">
+    <slot></slot>
+  </el-dialog>
 </template>
 
 <script>
 export default {
-  name: 'Dashboard'
+  name: 'XDialog'
 }
 </script>
 

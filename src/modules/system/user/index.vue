@@ -4,16 +4,16 @@
     <registered v-model="isShowRegistered" @on-success="init" />
     <el-table :data="list" border class="w-f-100">
       <el-table-column type="index" label="序号" align="center"></el-table-column>
-      <el-table-column prop="userLoginName" label="登录账号" width="120"></el-table-column>
+      <el-table-column prop="loginName" label="登录账号" width="120"></el-table-column>
       <el-table-column prop="displayName" label="用户名称" width="120"></el-table-column>
       <el-table-column label="账号状态" width="100" align="center">
         <template v-slot="{ row }">
-          <el-tag v-if="row.userStatus === 1" type="success">启用</el-tag>
-          <el-tag v-else-if="row.userStatus === 2" type="danger">禁用</el-tag>
+          <x-dot-tag v-if="row.status === 1" type="success">启用</x-dot-tag>
+          <x-dot-tag v-else-if="row.status === 2" type="danger">禁用</x-dot-tag>
         </template>
       </el-table-column>
       <el-table-column label="注册时间" width="150">
-        <template v-slot="{ row }">{{ row.userRegistered | formatDate }}</template>
+        <template v-slot="{ row }">{{ row.registeredTime | formatDate }}</template>
       </el-table-column>
       <el-table-column label="最后登录" width="150">
         <template v-slot="{ row }">{{ row.lastLoginTime | formatDate }}</template>
@@ -28,7 +28,7 @@
             <el-button type="primary" icon="el-icon-user" size="mini" @click="_allocationRole(row)">分配角色</el-button>
             <template>
               <el-button
-                v-if="row.userStatus === 1"
+                v-if="row.status === 1"
                 type="warning"
                 icon="el-icon-close"
                 size="mini"
@@ -38,7 +38,7 @@
                 禁用
               </el-button>
               <el-button
-                v-else-if="row.userStatus === 2"
+                v-else-if="row.status === 2"
                 type="success"
                 icon="el-icon-check"
                 size="mini"
@@ -173,7 +173,7 @@ export default {
         } else if (mark === 3) {
           message = '是否删除该用户？'
         }
-        window.common.showConfirm({
+        window.common.confirm({
           title: '警告',
           message,
           type: 'warning',
@@ -186,9 +186,9 @@ export default {
 
     // 重置密码
     _resetPassword (id) {
-      window.common.showConfirm({
+      window.common.confirm({
         title: '警告',
-        message: '确认要将密码重置为：123456吗？',
+        message: '确认要将密码重置为：nkm-123456吗？',
         type: 'warning',
         callback: (action) => {
           if (action === 'confirm') {
@@ -196,7 +196,7 @@ export default {
             this.resetPassword({ id }).then(() => {
               window.common.hideLoading()
               window.common.showMessage({
-                message: '重置成功，密码为：123456',
+                message: '重置成功，密码为：nkm-123456',
                 type: 'success',
                 showClose: true,
                 duration: 0

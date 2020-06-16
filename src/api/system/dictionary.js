@@ -1,16 +1,15 @@
-import axios from '@/utils/axios'
+import request from '@/request'
 
 export default {
   getDictionaryTree (data) {
-    return axios({
+    return request({
       url: '/system/dictionary/tree',
-      method: 'POST',
       data
     })
   },
 
   saveDictionary (data) {
-    return axios({
+    return request({
       url: '/system/dictionary/save',
       method: 'POST',
       data
@@ -18,7 +17,7 @@ export default {
   },
 
   delDictionary (data) {
-    return axios({
+    return request({
       url: '/system/dictionary/del',
       method: 'POST',
       data

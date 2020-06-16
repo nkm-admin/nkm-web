@@ -34,7 +34,6 @@ export default {
   data () {
     return {
       svgCaptcha: '',
-      svgCaptchaText: '',
       captchaToken: '',
       captchaErrorMsg: '',
       formModel: {
@@ -62,13 +61,7 @@ export default {
           }
         ],
         captcha: [
-          { required: true, message: '请输入验证码', trigger: 'blur' },
-          {
-            validator: (rule, value, cb) => {
-              return value !== this.svgCaptchaText ? cb('验证码输入有误') : cb()
-            },
-            trigger: 'blur'
-          }
+          { required: true, message: '请输入验证码', trigger: 'blur' }
         ]
       }
     }
@@ -80,18 +73,16 @@ export default {
     ...mapActions('authen', ['login', 'getCaptcha']),
     // 初始化，获取验证码
     async init () {
-      let { token, image, text } = await this.getCaptcha()
+      let { token, image } = await this.getCaptcha()
       this.svgCaptcha = image
       this.captchaToken = token
-      this.svgCaptchaText = text.toLocaleLowerCase()
     },
     // 切换验证码
     async _getCaptcha () {
-      let { image, text } = await this.getCaptcha({
+      let { image } = await this.getCaptcha({
         token: this.captchaToken
       })
       this.svgCaptcha = image
-      this.svgCaptchaText = text.toLocaleLowerCase()
     },
     _login () {
       this.$refs.form.validate(async valid => {
@@ -99,7 +90,7 @@ export default {
           window.common.showLoading('登录中...')
           this.login({
             ...this.formModel,
-            userAgent: navigator.userAgent
+            token: this.captchaToken
           }).then(async () => {
             window.common.showLoading('正在加载数据字典...')
             await this.$store.dispatch('system/dictionary/getTree')
@@ -112,7 +103,7 @@ export default {
       })
     },
     _valid ({ code, message }) {
-      if (code === 'A1011') this.captchaErrorMsg = message
+      if (code === '10010') this.captchaErrorMsg = message
       this._getCaptcha()
     }
   }

@@ -20,7 +20,7 @@ export const matchCname = str => /^[\u2E80-\u9FFF]+$/.test(str)
  * 密码校验
  * @param {String} str
  */
-export const matchPassword = str => /^[a-z\d,./!@#$*&]+$/i.test(str)
+export const matchPassword = str => /^[a-z\d,./!@#$*&-]+$/i.test(str)
 
 /**
  * 校验邮箱

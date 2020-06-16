@@ -18,7 +18,7 @@ Vue.use(ElementUI, {
 import './assets/scss/index.scss'
 
 // 引入svg-icon组件
-import './components/SvgIcon'
+import './components/XSvgIcon'
 
 Vue.config.productionTip = false
 
@@ -27,7 +27,7 @@ window.common = {
   showLoading: utils.showLoading,
   hideLoading: utils.hideLoading,
   showMessage: utils.showMessage,
-  showConfirm: utils.showConfirm
+  confirm: utils.confirm
 }
 
 new Vue({

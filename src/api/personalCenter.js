@@ -1,9 +1,9 @@
-import axios from '@/utils/axios'
+import axios from '@/request'
 
 export default {
   updateInfo (data) {
     return axios({
-      url: '/personal-center/update-info',
+      url: '/system/user/update-info',
       method: 'POST',
       data
     })
@@ -12,7 +12,7 @@ export default {
   // 修改密码
   modifyPassword (data) {
     return axios({
-      url: '/personal-center/modify-password',
+      url: '/system/user/modify-password',
       method: 'POST',
       data
     })

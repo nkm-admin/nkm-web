@@ -1,10 +1,9 @@
 # nkm后台管理系统初始化模版-web端
 
 * 测试账号：testAdmin/123456
-
 * 脚手架采取3.x，项目已配置vue-router + vuex + eslint + axios + element-ui + sass(scss)
-
 * store、router已采取自动注入
+* 服务端仓库地址：[https://github.com/nkm-admin/nkm-server-ts](https://github.com/nkm-admin/nkm-server-ts)
 
 ## 安装项目依赖
 ```

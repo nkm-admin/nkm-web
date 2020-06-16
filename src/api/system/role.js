@@ -1,22 +1,21 @@
-import axios from '@/utils/axios'
+import request from '@/request'
 
 export default {
   getRoleList (data) {
-    return axios({
+    return request({
       url: '/system/role/list',
-      method: 'POST',
       data
     })
   },
   saveRole (data) {
-    return axios({
+    return request({
       url: '/system/role/save',
       method: 'POST',
       data
     })
   },
   delRole (data) {
-    return axios({
+    return request({
       url: '/system/role/del',
       method: 'POST',
       data

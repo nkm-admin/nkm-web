@@ -4,7 +4,7 @@
       <div class="logo flex-center">
         <img src="../../assets/images/logo.png" class="logo-img" alt="">
       </div>
-      <side-menu :collapse="isCollapse" />
+      <Menu :collapse="isCollapse" />
     </el-aside>
     <el-container>
       <el-header height="60px">
@@ -20,7 +20,7 @@
             <div class="user-info">
               <el-dropdown @command="_dropdown">
                 <div class="user-name">
-                  <img :src="userInfo.avatar" class="avatar" width="30" alt="">
+                  <img :src="userInfo.avatar || avatar" class="avatar" width="30" alt="">
                   <span>{{ userInfo.displayName }}</span>
                   <i class="m-l-5px el-icon-arrow-down"></i>
                 </div>
@@ -45,19 +45,21 @@
 </template>
 
 <script>
-import SideMenu from './components/SideMenu'
+import Menu from './components/Menu'
 import BreadCrumb from './components/BreadCrumb'
 import { mapState } from 'vuex'
+import { AVATAR } from '@/config'
 import API from '@/api'
 export default {
   name: 'Main',
   components: {
-    SideMenu,
+    Menu,
     BreadCrumb
   },
   data () {
     return {
-      isCollapse: false
+      isCollapse: false,
+      avatar: AVATAR
     }
   },
   computed: {
@@ -82,8 +84,8 @@ export default {
           window.common.showLoading('正在退出中...')
           await API.logout()
           window.common.hideLoading()
-          this.$router.push({ name: 'Login' })
           this.$store.commit('authen/LOGOUT')
+          this.$router.push({ name: 'Login' })
           break
       }
       /* eslint-disable */

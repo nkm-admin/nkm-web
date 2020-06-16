@@ -1,4 +1,4 @@
-import axios from '@/utils/axios'
+import request from '@/request'
 
 const context = require.context('./', true, /\.js/)
 let apiArr = {}
@@ -9,7 +9,7 @@ context.keys().forEach(apiPath => {
 export default {
   // 登录
   login (data) {
-    return axios({
+    return request({
       url: '/login',
       method: 'POST',
       data
@@ -18,7 +18,7 @@ export default {
 
   // 退出
   logout () {
-    return axios({
+    return request({
       url: '/login-out',
       method: 'POST'
     })
@@ -26,7 +26,7 @@ export default {
 
   // 获取验证码
   getCaptcha (params) {
-    return axios({
+    return request({
       url: '/captcha',
       params
     })
@@ -34,7 +34,7 @@ export default {
 
   // 上传文件
   upload (data) {
-    return axios({
+    return request({
       url: '/upload',
       headers: {
         'Content-Type': 'multipart/form-data;'

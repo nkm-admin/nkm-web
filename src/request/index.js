@@ -1,7 +1,8 @@
 import Axios from 'axios'
 import qs from 'qs'
 import router from '@/router'
-import store from '../store'
+import store from '@/store'
+import cookie from '@/utils/cookie'
 
 const option = {
   timeout: 20000,
@@ -26,6 +27,8 @@ const axios = Axios.create(option)
 axios.interceptors.request.use(config => {
   // 请求时设置token
   config.headers.token = store.state.authen.token
+
+  config.headers['x-csrf-token'] = cookie.get('csrfToken')
   return config
 }, error => {
   return Promise.reject(error)
@@ -51,7 +54,8 @@ axios.interceptors.response.use(response => {
         /* eslint-disable */
         switch (response.data.code) {
           // 登录已过期
-          case 'A1004':
+          case '10002':
+            store.commit('authen/LOGOUT')
             router.push({
               name: 'Login'
             })

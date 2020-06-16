@@ -12,11 +12,6 @@ export default {
       default: '',
       required: true
     }
-  },
-  data () {
-    return {
-
-    }
   }
 }
 </script>
