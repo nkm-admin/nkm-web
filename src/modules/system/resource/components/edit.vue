@@ -180,6 +180,7 @@ export default {
       this._reset()
       this.$emit('update:visible', false)
       this.$emit('update:data', {})
+      this.$emit('update:parentId', 0)
     }
   }
 }

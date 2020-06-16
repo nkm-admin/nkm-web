@@ -9,8 +9,8 @@
         default-expand-all
       >
         <el-table-column prop="name" label="名称"></el-table-column>
-        <el-table-column prop="code" label="编码" width="160" align="center"></el-table-column>
-        <el-table-column prop="path" label="链接" width="160" align="center"></el-table-column>
+        <el-table-column prop="code" label="编码" align="center"></el-table-column>
+        <el-table-column prop="path" label="链接" align="center"></el-table-column>
         <el-table-column label="类型" width="100" align="center">
           <template v-slot="{ row }">{{ row.type | type }}</template>
         </el-table-column>
@@ -34,7 +34,7 @@
       <edit
         :visible.sync="isShowEdit"
         :resource-list="flatList"
-        :parent-id="editParentId"
+        :parent-id.sync="editParentId"
         :data.sync="editData"
         @success="init"
       />
