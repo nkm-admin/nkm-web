@@ -81,17 +81,10 @@ axios.interceptors.response.use(response => {
       type: 'error'
     })
   } else {
-    if (error.response.status === 500) {
-      window.common.showMessage({
-        message: '请求失败！',
-        type: 'error'
-      })
-    } else {
-      window.common.showMessage({
-        message: error.message,
-        type: 'error'
-      })
-    }
+    window.common.showMessage({
+      message: error.message || '请求失败',
+      type: 'error'
+    })
   }
   return Promise.reject(error)
 })

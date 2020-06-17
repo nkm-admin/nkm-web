@@ -23,7 +23,7 @@ const authen = {
       state.userInfo = {}
       state.menu = []
       state.menuUrls = []
-      state.token = null
+      state.token = ''
       state.btnCodes = []
       sessionStorage.clear()
     },

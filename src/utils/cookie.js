@@ -2,12 +2,17 @@
 // 对cookie的封装
 class Cookie {
   get (key) {
-    const cookies = {}
-    document.cookie.split(';').forEach(item => {
-      const { key, value } = /(?<key>\S+)=(?<value>\S+)/.exec(item).groups
-      cookies[key] = decodeURIComponent(value)
-    })
-    return cookies[key]
+    try {
+      const cookies = {}
+      document.cookie.split(';').forEach(item => {
+        const { key, value } = /(?<key>\S+)=(?<value>\S+)/.exec(item).groups
+        cookies[key] = decodeURIComponent(value)
+      })
+      return cookies[key]
+    } catch (err) {
+      console.log(err)
+      return ''
+    }
   }
 
   set (key, value) {

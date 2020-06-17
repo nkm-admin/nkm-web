@@ -30,7 +30,7 @@
 import { mapActions } from 'vuex'
 import { matchLoginName, matchPassword } from '@/utils/regexp'
 export default {
-  name: 'Test',
+  name: 'Login',
   data () {
     return {
       svgCaptcha: '',
