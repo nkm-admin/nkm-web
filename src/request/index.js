@@ -54,15 +54,11 @@ axios.interceptors.response.use(response => {
         /* eslint-disable */
         switch (response.data.code) {
           // 登录已过期
-          case '10002':
+          case '10003':
             store.commit('authen/LOGOUT')
             router.push({
               name: 'Login'
             })
-            break
-          // 验证码请求已失效
-          case 'A1012':
-            location.reload()
             break
         }
         /* eslint-disable */
