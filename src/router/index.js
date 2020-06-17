@@ -34,10 +34,7 @@ const router = new Router({
       path: '/',
       name: 'Index',
       meta: {
-        title: '主页',
-        loading: {
-          isShow: false
-        }
+        title: '主页'
       },
       redirect: '/dashboard',
       component: () => import( /* webpackChunkName: "login" */ '../pages/main/index.vue'),
@@ -74,9 +71,6 @@ router.beforeEach((to, from, next) => {
     }
 
     next()
-    to.meta.loading
-      && to.meta.loading.isShow
-      && window.common.showLoading(to.meta.loading.text || '加载中...')
   } catch (error) {
     next({ name: 'Login' })
   }

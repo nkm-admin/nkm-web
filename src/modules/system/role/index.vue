@@ -107,11 +107,12 @@ export default {
     }
   },
   created () {
-    window.common.hideLoading()
+    this.init()
   },
   methods: {
     ...mapActions('system/role', ['getRoleList', 'saveRole', 'delRole']),
     async init () {
+      window.common.showLoading('角色列表加载中...')
       // 获取资源树
       await this.$store.dispatch('system/resource/getResourceTree')
 

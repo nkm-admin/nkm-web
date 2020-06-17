@@ -115,6 +115,7 @@ export default {
   methods: {
     ...mapActions('system/user', ['getUserList', 'modifyStatus', 'resetPassword', 'allocationRole']),
     async init () {
+      window.common.showLoading('用户列表加载中...')
       this.list = await this.getUserList()
       window.common.hideLoading()
     },

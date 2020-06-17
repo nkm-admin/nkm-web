@@ -12,7 +12,9 @@
         <el-table-column prop="code" label="编码" align="center"></el-table-column>
         <el-table-column prop="path" label="链接" align="center"></el-table-column>
         <el-table-column label="类型" width="100" align="center">
-          <template v-slot="{ row }">{{ row.type | type }}</template>
+          <template v-slot="{ row }">
+            <el-tag :type="row.type | tagType">{{ row.type | type }}</el-tag>
+          </template>
         </el-table-column>
         <el-table-column label="图标" width="60" align="center">
           <template v-slot="{ row }">
@@ -56,6 +58,16 @@ export default {
         'system:resource:api': '接口'
       }
       return type[val]
+    },
+
+    tagType (val) {
+      const type = {
+        'system:resource:menu': '',
+        'system:resource:page': 'success',
+        'system:resource:btn': 'warning',
+        'system:resource:api': 'danger'
+      }
+      return type[val]
     }
   },
   components: {
@@ -83,6 +95,7 @@ export default {
   methods: {
     ...mapActions('system/resource', ['getResourceTree', 'saveResource', 'delResource']),
     async init () {
+      window.common.showLoading('资源列表加载中...')
       await this.getResourceTree()
       window.common.hideLoading()
       this.flatList = []

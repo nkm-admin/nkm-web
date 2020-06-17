@@ -32,5 +32,14 @@ export default {
 <style lang="scss" scoped>
 .el-menu {
   border: 0;
+
+  &.el-menu--collapse {
+    /deep/ .el-submenu {
+      .title,
+      .el-submenu__icon-arrow {
+        display: none;
+      }
+    }
+  }
 }
 </style>
