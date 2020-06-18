@@ -4,8 +4,8 @@
     <registered v-model="isShowRegistered" @on-success="init" />
     <el-table :data="list" border class="w-f-100">
       <el-table-column type="index" label="序号" align="center"></el-table-column>
-      <el-table-column prop="loginName" label="登录账号" width="120"></el-table-column>
-      <el-table-column prop="displayName" label="用户名称" width="120"></el-table-column>
+      <el-table-column prop="loginName" label="登录账号"></el-table-column>
+      <el-table-column prop="displayName" label="用户名称"></el-table-column>
       <el-table-column label="账号状态" width="100" align="center">
         <template v-slot="{ row }">
           <x-dot-tag v-if="row.status === 1" type="success">启用</x-dot-tag>
@@ -18,38 +18,40 @@
       <el-table-column label="最后登录" width="150">
         <template v-slot="{ row }">{{ row.lastLoginTime | formatDate }}</template>
       </el-table-column>
-      <el-table-column label="操作">
+      <el-table-column label="操作" width="260" align="center">
         <template v-slot="{ row }">
           <template v-if="row.isSystemAdmin">
-            <el-button type="primary" icon="el-icon-user" size="mini" @click="_allocationRole(row)">分配角色</el-button>
-            <el-button icon="el-icon-unlock" size="mini" @click="_resetPassword(row.id)">重置密码</el-button>
+            <el-link type="primary" size="mini" @click="_allocationRole(row)">分配角色</el-link>
+            <el-divider direction="vertical"></el-divider>
+            <el-link type="primary" size="mini" @click="_resetPassword(row.id)">重置密码</el-link>
           </template>
           <template v-else>
-            <el-button type="primary" icon="el-icon-user" size="mini" @click="_allocationRole(row)">分配角色</el-button>
+            <el-link type="primary" size="mini" @click="_allocationRole(row)">分配角色</el-link>
+            <el-divider direction="vertical"></el-divider>
             <template>
-              <el-button
+              <el-link
                 v-if="row.status === 1"
-                type="warning"
-                icon="el-icon-close"
+                type="primary"
                 size="mini"
                 :loading="row.btnLoading"
                 @click="_modifyStatus(row, 2)"
               >
                 禁用
-              </el-button>
-              <el-button
+              </el-link>
+              <el-link
                 v-else-if="row.status === 2"
-                type="success"
-                icon="el-icon-check"
+                type="primary"
                 size="mini"
                 :loading="row.btnLoading"
                 @click="_modifyStatus(row, 1)"
               >
                 启用
-              </el-button>
+              </el-link>
             </template>
-            <el-button type="danger" icon="el-icon-delete" size="mini" @click="_modifyStatus(row, 3)">删除</el-button>
-            <el-button icon="el-icon-unlock" size="mini" @click="_resetPassword(row.id)">重置密码</el-button>
+            <el-divider direction="vertical"></el-divider>
+            <el-link type="primary" size="mini" @click="_modifyStatus(row, 3)">删除</el-link>
+            <el-divider direction="vertical"></el-divider>
+            <el-link type="primary" size="mini" @click="_resetPassword(row.id)">重置密码</el-link>
           </template>
         </template>
       </el-table-column>

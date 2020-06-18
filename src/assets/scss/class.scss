@@ -129,7 +129,7 @@
 
 // 提示颜色
 .c-theme {
-  color: $color-theme;
+  color: var(--color-theme);
 }
 .c-success {
   color: $color-success;

@@ -5,20 +5,29 @@ $font-size-large: 16px !default;
 
 // 颜色
 $color-theme: #1890ff;
-$color-title: #17233d;
-$color-content: #515a6e;
-$color-sub-content: #808695;
+
+$color-text: #262728;
+$color-sub-text: #8B8C8D;
+$color-background: #f0f2f5;
+$color-background-content: #fafafa;
+$color-input-bg: $color-background-content;
+$color-border: #e8e8e8;
 $color-disabled: #c5c8ce;
-$color-border: #EBEEF5;
-$color-background: #f8f8f9;
+$color-toast-bg: rgba(255, 255, 255, .6);
+
+$color-text-dark: #D0D1D2;
+$color-sub-text-dark: #6D6E6F;
+$color-background-dark: #101112;
+$color-background-content-dark: #18191A;
+$color-input-bg-dark: $color-background-content-dark;
+$color-border-dark: #2B2C2D;
+$color-disabled-dark: #c5c8ce;
+$color-toast-bg-dark: rgba(0, 0, 0, .6);
 
 $color-success: #52c41a;
 $color-warning: #faad14;
 $color-error: #f5222d;
 $color-info: #1890ff;
-
-// toast背景颜色
-$color-toast-bg: rgba(37, 38, 45, .8);
 
 $border-radius: 5px;
 

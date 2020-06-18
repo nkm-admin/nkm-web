@@ -19,7 +19,7 @@
           </ul>
         </el-card>
       </el-col>
-      <el-col :span="1">&nbsp;</el-col>
+      <el-col :span="1">{{ '\u3000' }}</el-col>
       <el-col :span="17">
         <el-card shadow="never">
           <template #header>
@@ -69,8 +69,8 @@ export default {
         padding: 10px 20px;
 
         &.is-active {
-          background: #F2FAFE;
-          color: #5999EB;
+          background: var(--color-background);
+          color: var(--color-theme);
         }
       }
     }

@@ -195,7 +195,7 @@ export default {
 .tree-wrapper {
   width: 25%;
   padding: $content-padding $content-padding $content-padding 0;
-  border-right: 1px solid $color-border;
+  border-right: 1px solid var(--color-border);
 }
 .edit-wrapper {
   padding: $content-padding;

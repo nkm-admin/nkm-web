@@ -242,12 +242,12 @@ export default {
   .role-list {
     width: 20%;
     padding: $content-padding;
-    border-right: 1px solid $color-border;
+    border-right: 1px solid var(--color-border);
     box-sizing: border-box;
 
     header {
       padding-bottom: 15px;
-      border-bottom: 1px solid $color-border;
+      border-bottom: 1px solid var(--color-border);
     }
 
     .item {
@@ -255,7 +255,7 @@ export default {
       border-radius: 3px;
 
       &.is-active {
-        background-color: $color-theme;
+        background-color: var(--color-theme);
         color: #fff;
       }
     }
@@ -265,7 +265,7 @@ export default {
     padding: $content-padding;
 
     .form-wrapper {
-      border-bottom: 1px solid $color-border;
+      border-bottom: 1px solid var(--color-border);
     }
 
     .el-form {

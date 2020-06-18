@@ -30,6 +30,8 @@ window.common = {
   confirm: utils.confirm
 }
 
+document.querySelector('html').setAttribute('data-theme', localStorage.getItem('mode'))
+
 new Vue({
   router,
   store,

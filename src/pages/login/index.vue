@@ -116,18 +116,18 @@ export default {
   align-items: center;
   width: 100%;
   height: 100%;
-  background-color: $color-background;
+
   .form-wrapper {
     width: 350px;
     padding: 20px;
-    background-color: #fff;
+    background-color: var(--color-background-content);
     border-radius: $border-radius;
     box-shadow: $box-shadow;
   }
   .logo {
     margin-bottom: 10px;
     padding-bottom: 10px;
-    border-bottom: 1px solid $color-border;
+    border-bottom: 1px solid var(--color-border);
   }
 }
 </style>

@@ -17,20 +17,28 @@
             <bread-crumb class="flex-center m-l-15px" />
           </el-col>
           <el-col :span="10" class="t-right">
-            <div class="user-info">
-              <el-dropdown @command="_dropdown">
-                <div class="user-name">
-                  <img :src="userInfo.avatar || avatar" class="avatar" width="30" alt="">
-                  <span>{{ userInfo.displayName }}</span>
-                  <i class="m-l-5px el-icon-arrow-down"></i>
-                </div>
-                <template #dropdown>
-                  <el-dropdown-menu>
-                    <el-dropdown-item icon="el-icon-user" command="user">个人中心</el-dropdown-item>
-                    <el-dropdown-item icon="el-icon-s-promotion" divided command="logout">退出</el-dropdown-item>
-                  </el-dropdown-menu>
-                </template>
-              </el-dropdown>
+            <div class="clearfix">
+              <div class="fr user-info">
+                <el-dropdown trigger="click" @command="_dropdown">
+                  <div class="user-name">
+                    <img :src="userInfo.avatar || avatar" class="avatar" width="30" alt="">
+                    <span>{{ userInfo.displayName }}</span>
+                    <i class="m-l-5px el-icon-arrow-down"></i>
+                  </div>
+                  <template #dropdown>
+                    <el-dropdown-menu>
+                      <el-dropdown-item icon="el-icon-user" command="user">个人中心</el-dropdown-item>
+                      <el-dropdown-item icon="el-icon-s-promotion" divided command="logout">退出</el-dropdown-item>
+                    </el-dropdown-menu>
+                  </template>
+                </el-dropdown>
+              </div>
+              <div class="fr mode-btn t-center c-pointer">
+                <el-tooltip effect="dark" content="模式切换" placement="bottom">
+                  <i v-if="mode === 'dark'" class="el-icon-sunny" @click="_toggleMode('day')"></i>
+                  <i v-else-if="mode === 'day'" class="el-icon-moon" @click="_toggleMode('dark')"></i>
+                </el-tooltip>
+              </div>
             </div>
           </el-col>
         </el-row>
@@ -59,7 +67,8 @@ export default {
   data () {
     return {
       isCollapse: false,
-      avatar: AVATAR
+      avatar: AVATAR,
+      mode: 'day'
     }
   },
   computed: {
@@ -72,6 +81,9 @@ export default {
       const routerName = ['PersonalCenter', 'Dashboard']
       return routerName.findIndex(v => v === this.$route.name) !== -1
     }
+  },
+  created () {
+    this._toggleMode(localStorage.getItem('mode'))
   },
   methods: {
     async _dropdown (command) {
@@ -89,6 +101,12 @@ export default {
           break
       }
       /* eslint-disable */
+    },
+
+    _toggleMode (mode = 'day') {
+      this.mode = mode
+      document.querySelector('html').setAttribute('data-theme', mode)
+      localStorage.setItem('mode', mode)
     }
   }
 }
@@ -97,14 +115,14 @@ export default {
 <style lang="scss" scoped>
 $color-main: #fff;
 .el-aside {
-  background-color: $color-main;
+  background-color: var(--color-background-content);
   box-shadow: $box-shadow;
 
   .logo {
     height: 60px;
     padding: 10px 0;
     box-sizing: border-box;
-    border-bottom: 1px solid $color-background;
+    border-bottom: 1px solid var(--color-border);
 
     img {
       height: 40px;
@@ -129,7 +147,7 @@ $color-main: #fff;
 }
 
 .el-header {
-  background-color: $color-main;
+  background-color: var(--color-background-content);
   box-shadow: 10px 0 10px rgba(0,0,0,.1);
   line-height: 60px;
 
@@ -137,6 +155,12 @@ $color-main: #fff;
     font-size: 28px;
     cursor: pointer;
   }
+}
+
+.mode-btn {
+  width: 30px;
+  margin-right: 10px;
+  font-size: 20px;
 }
 
 .user-info {
@@ -154,7 +178,7 @@ $color-main: #fff;
   padding: $content-padding;
   box-sizing: border-box;
   overflow: auto;
-  background-color: #fff;
+  background-color: var(--color-background-content);
   border-radius: $border-radius;
 
   &.no-padding {

@@ -24,11 +24,13 @@
         <el-table-column label="创建时间" width="160" align="center">
           <template v-slot="{ row }">{{ row.createTime | formatDate }}</template>
         </el-table-column>
-        <el-table-column label="操作" width="220" align="center">
+        <el-table-column label="操作" width="180" align="center">
           <template v-slot="{ row }">
-            <el-button size="mini" type="primary" @click="_add(row.id)">添加</el-button>
-            <el-button size="mini" type="primary" @click="_edit(row)">编辑</el-button>
-            <el-button size="mini" type="danger" @click="_del(row.id)">删除</el-button>
+            <el-link size="mini" type="primary" @click="_add(row.id)">添加</el-link>
+            <el-divider direction="vertical"></el-divider>
+            <el-link size="mini" type="primary" @click="_edit(row)">编辑</el-link>
+            <el-divider direction="vertical"></el-divider>
+            <el-link size="mini" type="primary" @click="_del(row.id)">删除</el-link>
           </template>
         </el-table-column>
       </el-table>

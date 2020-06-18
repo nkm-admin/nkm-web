@@ -42,20 +42,20 @@ i {
 
 a {
   text-decoration: none;
-  color: $color-content;
+  color: var(--color-text);
   transition: .5s;
 
   &:active,
   &:hover {
     text-decoration: none;
-    color: $color-theme;
+    color: var(--color-theme);
   }
 }
 
 body {
-  background-color: $color-background;
+  background-color: var(--color-background);
   font: $font-size-base "system-ui","PingFangSC-Regular","Microsoft Yahei";
-  color: $color-content;
+  color: var(--color-text);
 }
 
 html,

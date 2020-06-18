@@ -1,12 +1,36 @@
+:root {
+  --color-theme: #{$color-theme};
+  --color-text: #{$color-text};
+  --color-sub-text: #{$color-sub-text};
+  --color-background: #{$color-background};
+  --color-background-content: #{$color-background-content};
+  --color-input-bg: #{$color-background-content};
+  --color-border: #{$color-border};
+  --color-disabled: #{$color-disabled};
+  --color-toast-bg: #{$color-toast-bg};
+}
+
+html[data-theme="dark"] {
+  --color-theme: #{$color-theme};
+  --color-text: #{$color-text-dark};
+  --color-sub-text: #{$color-sub-text-dark};
+  --color-background: #{$color-background-dark};
+  --color-background-content: #{$color-background-content-dark};
+  --color-input-bg: #{$color-background-content-dark};
+  --color-border: #{$color-border-dark};
+  --color-disabled: #{$color-disabled-dark};
+  --color-toast-bg: #{$color-toast-bg-dark};
+}
+
 // 滚动条颜色
 ::-webkit-scrollbar {
-  width: 2px;
+  width: 6px;
   height: 2px;
-  background: #e4e4e4;
+  background: #F0F2F5;
 }
 
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background-color: $color-theme;
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
+  background-color: #C1C1C1;
+  // background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
 }
