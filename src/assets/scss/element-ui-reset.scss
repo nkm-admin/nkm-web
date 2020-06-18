@@ -52,7 +52,7 @@ $--color-danger: $color-error;
 
 // 菜单
 .el-menu {
-  background-color: var(--input-bg-color);
+  background-color: var(--color-background-content);
 
   .title,
   [class^="el-icon-"],
@@ -66,6 +66,10 @@ $--color-danger: $color-error;
     }
   }
 }
+.el-submenu.is-active > .el-submenu__title,
+.el-menu-item.is-active {
+  background-color: var(--color-background);
+}
 .el-menu-item:hover,
 .el-menu-item:focus,
 .el-submenu__title:hover {
@@ -78,6 +82,11 @@ $--color-danger: $color-error;
   width: 24px;
   text-align: center;
   font-size: 18px;
+}
+.el-menu--vertical {
+  .el-menu {
+    background-color: var(--color-background);
+  }
 }
 
 // 卡片组件
