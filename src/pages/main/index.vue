@@ -83,7 +83,7 @@ export default {
     }
   },
   created () {
-    this._toggleMode(localStorage.getItem('mode') || 'day')
+    this._toggleMode(localStorage.getItem('mode'))
   },
   methods: {
     async _dropdown (command) {
@@ -104,7 +104,7 @@ export default {
     },
 
     _toggleMode (mode) {
-      this.mode = mode
+      this.mode = mode === 'null' ? 'day' : mode
       document.querySelector('html').setAttribute('data-theme', mode)
       localStorage.setItem('mode', mode)
     }
