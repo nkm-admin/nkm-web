@@ -83,7 +83,7 @@ export default {
     }
   },
   created () {
-    this._toggleMode(localStorage.getItem('mode'))
+    this._toggleMode(localStorage.getItem('mode') || 'day')
   },
   methods: {
     async _dropdown (command) {
@@ -103,7 +103,7 @@ export default {
       /* eslint-disable */
     },
 
-    _toggleMode (mode = 'day') {
+    _toggleMode (mode) {
       this.mode = mode
       document.querySelector('html').setAttribute('data-theme', mode)
       localStorage.setItem('mode', mode)
