@@ -31,9 +31,6 @@ $--color-danger: $color-error;
 .el-menu-item:hover,
 .el-menu-item:focus,
 .el-submenu__title:hover,
-.el-table--group::after,
-.el-table--border::after,
-.el-table::before,
 .el-table--enable-row-hover .el-table__body tr:hover > td,
 .el-select-dropdown,
 .el-select-dropdown__item.hover,
@@ -115,6 +112,11 @@ $--color-danger: $color-error;
 }
 
 // 表格
+.el-table--group::after,
+.el-table--border::after,
+.el-table::before {
+  background-color: var(--color-border);
+}
 .el-table,
 .el-table tr,
 .el-table th {
