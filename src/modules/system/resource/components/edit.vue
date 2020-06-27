@@ -171,9 +171,7 @@ export default {
     // 重置表单
     _reset () {
       this.$refs.form.resetFields()
-      for (const [_key, _value] of Object.entries(this.$options.data().formModel)) {
-        this.formModel[_key] = _value
-      }
+      this.formModel = this.$options.data().formModel
     },
 
     _close () {
