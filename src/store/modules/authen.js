@@ -30,8 +30,14 @@ const authen = {
     [UPDATE] (state, data) {
       for (let [key, value] of Object.entries(data)) {
         state.userInfo[key] = value
-        sessionStorage.setItem('userInfo', JSON.stringify(state.userInfo))
       }
+      sessionStorage.setItem('userInfo', AESHelper.encrypt({
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          ...data
+        }
+      }))
     }
   },
   actions: {
