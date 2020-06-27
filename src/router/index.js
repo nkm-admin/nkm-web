@@ -65,7 +65,7 @@ router.beforeEach((to, from, next) => {
   try {
     // 判断是否有页面访问权限
     const isPermission = store.state.authen.menuUrls.findIndex(path => pathToRegexp(path).test(to.path)) === -1
-    if (isPermission && to.name !== 'NoPermissiom') {
+    if (isPermission && to.name !== 'NoPermissiom' && to.path !== '/404') {
       window.common.hideLoading()
       return next({ name: 'NoPermissiom' })
     }
