@@ -60,8 +60,8 @@
         <el-form-item label="排序" prop="sort">
           <el-input v-model="formModel.sort"></el-input>
         </el-form-item>
-        <el-form-item label="是否启用" prop="enable">
-          <el-checkbox v-model="formModel.enable" :true-label="1" :false-label="0"></el-checkbox>
+        <el-form-item label="是否启用" prop="enabled">
+          <el-checkbox v-model="formModel.enabled" :true-label="1" :false-label="0"></el-checkbox>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="_save">保存</el-button>
@@ -107,7 +107,7 @@ export default {
         parentCode: '',
         path: '',
         icon: '',
-        enable: 1,
+        enabled: 1,
         sort: 0,
         type: ''
       },

@@ -1,12 +1,11 @@
 <template>
   <div class="container">
     <div class="tree-wrapper">
-      <el-button type="primary" icon="el-icon-plus" class="m-b-15px" @click="_add(null)">新增节点</el-button>
+      <el-button type="primary" class="m-b-15px" @click="_add(null)">新增节点</el-button>
       <el-table
         :data="tree"
         border
         row-key="id"
-        default-expand-all
       >
         <el-table-column prop="name" label="名称"></el-table-column>
         <el-table-column prop="code" label="编码" align="center"></el-table-column>
@@ -19,6 +18,12 @@
         <el-table-column label="图标" width="60" align="center">
           <template v-slot="{ row }">
             <i :class="row.icon" style="font-size: 18px"></i>
+          </template>
+        </el-table-column>
+        <el-table-column label="启用" width="80" align="center">
+          <template v-slot="{ row }">
+            <x-dot-tag v-if="row.enabled" type="success">是</x-dot-tag>
+            <x-dot-tag v-else type="danger">否</x-dot-tag>
           </template>
         </el-table-column>
         <el-table-column label="创建时间" width="160" align="center">
@@ -37,7 +42,7 @@
 
       <edit
         :visible.sync="isShowEdit"
-        :resource-list="flatList"
+        :resource-list="list"
         :parent-id.sync="editParentId"
         :data.sync="editData"
         @success="init"
@@ -48,6 +53,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import { sortTreeArr, deepTree } from '@/utils'
 import Edit from './components/edit'
 export default {
   name: 'Resource',
@@ -77,8 +83,7 @@ export default {
   },
   data () {
     return {
-      // 转换树形数据为一维数组
-      flatList: [],
+      tree: [],
       defaultProps: {
         children: 'children',
         label: 'name'
@@ -89,25 +94,18 @@ export default {
     }
   },
   computed: {
-    ...mapState('system/resource', ['tree'])
+    ...mapState('system/resource', ['list'])
   },
   created () {
     this.init()
   },
   methods: {
-    ...mapActions('system/resource', ['getResourceTree', 'saveResource', 'delResource']),
+    ...mapActions('system/resource', ['getResourceList', 'saveResource', 'delResource']),
     async init () {
       window.common.showLoading('资源列表加载中...')
-      await this.getResourceTree()
+      let data = await this.getResourceList()
       window.common.hideLoading()
-      this.flatList = []
-      const deepArray = arr => {
-        arr.forEach(item => {
-          if (item.children.length) deepArray(item.children)
-          this.flatList.push(item)
-        })
-      }
-      deepArray(this.tree)
+      this.tree = sortTreeArr(deepTree(data))
     },
 
     // 新增资源
@@ -133,7 +131,7 @@ export default {
           if (action === 'confirm') {
             window.common.showLoading('删除中...')
             await this.delResource({ id })
-            this.getResourceTree()
+            this.getResourceList()
             window.common.hideLoading()
           }
         }

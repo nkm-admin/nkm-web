@@ -8,6 +8,14 @@ export default {
     })
   },
 
+  // 获取资源列表
+  getResourceList (data) {
+    return request({
+      url: '/system/resource/list',
+      data
+    })
+  },
+
   // 保存资源
   saveResource (data) {
     return request({
