@@ -1,7 +1,7 @@
 <template>
   <div class="container flex flex-center">
     <div class="img">
-      <x-svg-icon type="icon-403-color"></x-svg-icon>
+      <x-svg-icon icon="icon-403-color"></x-svg-icon>
     </div>
     <div class="right">
       <h2 class="title">403</h2>
