@@ -8,6 +8,21 @@
   min-height: 100%;
 }
 
+// 外边距
+$margin: (
+  top: 5 10 15 20 30,
+  right: 5 10 15 20 30,
+  bottom: 5 10 15 20 30,
+  left: 5 10 15 20 30
+);
+@each $direction, $value in $margin {
+  @each $num in $value {
+    .m-#{str-slice($direction, 1, 1)}-#{$num}px {
+      margin-#{$direction}: #{$num}px;
+    }
+  }
+}
+
 // 浮动
 .fl {
   float: left;
@@ -22,18 +37,12 @@
   clear: both;
 }
 
-// 文字居中
-.t-left {
-  text-align: left;
-}
-.t-center {
-  text-align: center;
-}
-.t-right {
-  text-align: right;
-}
-.t-justify {
-  text-align: justify;
+// 文字对齐
+$align: left, center, right, justify;
+@each $str in $align {
+  .t-#{$str} {
+    text-align: $str;
+  }
 }
 .v-middle {
   vertical-align: middle;
@@ -64,59 +73,6 @@
 
 .o-y-scroll {
   overflow-y: scroll;
-}
-
-// 边距
-.m-t-5px {
-  margin-top: 5px;
-}
-.m-t-10px {
-  margin-top: 10px;
-}
-.m-t-15px {
-  margin-top: 15px;
-}
-.m-t-20px {
-  margin-top: 20px;
-}
-
-.m-r-5px {
-  margin-right: 5px;
-}
-.m-r-10px {
-  margin-right: 10px;
-}
-.m-r-15px {
-  margin-right: 15px;
-}
-.m-r-20px {
-  margin-right: 20px;
-}
-
-.m-b-5px {
-  margin-bottom: 5px;
-}
-.m-b-10px {
-  margin-bottom: 10px;
-}
-.m-b-15px {
-  margin-bottom: 15px;
-}
-.m-b-20px {
-  margin-bottom: 20px;
-}
-
-.m-l-5px {
-  margin-left: 5px;
-}
-.m-l-10px {
-  margin-left: 10px;
-}
-.m-l-15px {
-  margin-left: 15px;
-}
-.m-l-20px {
-  margin-left: 20px;
 }
 
 .c-pointer {

@@ -71,12 +71,14 @@ export default {
   },
   methods: {
     ...mapActions('authen', ['login', 'getCaptcha']),
+
     // 初始化，获取验证码
     async init () {
       let { token, image } = await this.getCaptcha()
       this.svgCaptcha = image
       this.captchaToken = token
     },
+
     // 切换验证码
     async _getCaptcha () {
       let { image } = await this.getCaptcha({
@@ -84,6 +86,7 @@ export default {
       })
       this.svgCaptcha = image
     },
+
     _login () {
       this.$refs.form.validate(async valid => {
         if (valid) {
@@ -102,6 +105,7 @@ export default {
         }
       })
     },
+
     _valid ({ code, message }) {
       if (code === '10010') this.captchaErrorMsg = message
       this._getCaptcha()

@@ -16,29 +16,36 @@
             </span>
             <bread-crumb class="flex-center m-l-15px" />
           </el-col>
-          <el-col :span="10" class="t-right">
-            <div class="clearfix">
-              <div class="fr user-info">
-                <el-dropdown trigger="click" @command="_dropdown">
-                  <div class="user-name">
-                    <img :src="userInfo.avatar || avatar" class="avatar" width="30" alt="">
-                    <span>{{ userInfo.displayName }}</span>
-                    <i class="m-l-5px el-icon-arrow-down"></i>
-                  </div>
-                  <template #dropdown>
-                    <el-dropdown-menu>
-                      <el-dropdown-item icon="el-icon-user" command="user">个人中心</el-dropdown-item>
-                      <el-dropdown-item icon="el-icon-s-promotion" divided command="logout">退出</el-dropdown-item>
-                    </el-dropdown-menu>
-                  </template>
-                </el-dropdown>
-              </div>
-              <div class="fr mode-btn t-center c-pointer">
-                <el-tooltip effect="dark" content="模式切换" placement="bottom">
-                  <i v-if="mode === 'dark'" class="el-icon-sunny" @click="_toggleMode('day')"></i>
-                  <i v-else-if="mode === 'day'" class="el-icon-moon" @click="_toggleMode('dark')"></i>
-                </el-tooltip>
-              </div>
+
+          <el-col :span="10" class="right-info flex t-right">
+            <a href="https://github.com/nkm-admin" target="_blank" class="m-r-10px" style="display:inherit;">
+              <x-svg-icon
+                icon="github"
+                :custom-style="{
+                  fill: mode === 'dark' ? '#fff' : ''
+                }"
+              />
+            </a>
+            <div class="mode-btn m-r-10px t-center c-pointer">
+              <el-tooltip effect="dark" content="模式切换" placement="bottom">
+                <i v-if="mode === 'dark'" class="el-icon-sunny" @click="_toggleMode('day')"></i>
+                <i v-else-if="mode === 'day'" class="el-icon-moon" @click="_toggleMode('dark')"></i>
+              </el-tooltip>
+            </div>
+            <div class="user-info">
+              <el-dropdown trigger="click" @command="_dropdown">
+                <div class="user-name">
+                  <img :src="userInfo.avatar || avatar" class="avatar" width="30" alt="">
+                  <span>{{ userInfo.displayName }}</span>
+                  <i class="m-l-5px el-icon-arrow-down"></i>
+                </div>
+                <template #dropdown>
+                  <el-dropdown-menu>
+                    <el-dropdown-item icon="el-icon-user" command="user">个人中心</el-dropdown-item>
+                    <el-dropdown-item icon="el-icon-s-promotion" divided command="logout">退出</el-dropdown-item>
+                  </el-dropdown-menu>
+                </template>
+              </el-dropdown>
             </div>
           </el-col>
         </el-row>
@@ -188,5 +195,10 @@ $color-main: #fff;
   &.no-background {
     background: none;
   }
+}
+
+.right-info {
+  justify-content: flex-end;
+  align-items: center;
 }
 </style>
