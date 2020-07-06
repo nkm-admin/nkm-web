@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createLogger from 'vuex/dist/logger'
 import getters from './getters'
+import { DEFAULT_PAGE_LIMIT } from '@/utils/const'
 
 Vue.use(Vuex)
 
@@ -62,5 +63,8 @@ export default new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   plugins: process.env.NODE_ENV !== 'production' ? [createLogger()] : [],
   modules: storeModules.getBaseModules(),
+  state: {
+    DEFAULT_PAGE_LIMIT
+  },
   getters
 })
