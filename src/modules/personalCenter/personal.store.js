@@ -7,7 +7,7 @@ export default {
     // 更新用户信息
     async updateInfo (context, reqData) {
       try {
-        let { data } = await API.updateInfo(reqData)
+        let { data } = await API.personalCenter.updateInfo(reqData)
         return Promise.resolve(data.data)
       } catch (error) {
         return Promise.reject(error)
@@ -30,7 +30,7 @@ export default {
 
     async modifyPassword (context, reqData) {
       try {
-        let { data } = await API.modifyPassword(reqData)
+        let { data } = await API.personalCenter.modifyPassword(reqData)
         return Promise.resolve(data.data)
       } catch (error) {
         return Promise.reject(error)

@@ -6,7 +6,7 @@ const user = {
   actions: {
     async getUserList () {
       try {
-        let { data } = await API.getUserList()
+        let { data } = await API['system/user'].getUserList()
         data.data.map(item => {
           item.btnLoading = false
         })
@@ -18,7 +18,7 @@ const user = {
 
     async modifyStatus (context, reqData) {
       try {
-        let { data } = await API.modifystatus(reqData)
+        let { data } = await API['system/user'].modifystatus(reqData)
         return Promise.resolve(data.data)
       } catch (error) {
         return Promise.reject(error)
@@ -27,7 +27,7 @@ const user = {
 
     async resetPassword (context, reqData) {
       try {
-        let { data } = await API.resetPassword(reqData)
+        let { data } = await API['system/user'].resetPassword(reqData)
         return Promise.resolve(data.data)
       } catch (error) {
         return Promise.reject(error)
@@ -36,7 +36,7 @@ const user = {
 
     async allocationRole (context, reqData) {
       try {
-        let { data } = await API.allocationRole(reqData)
+        let { data } = await API['system/user'].allocationRole(reqData)
         return Promise.resolve(data.data)
       } catch (error) {
         return Promise.reject(error)
@@ -45,7 +45,7 @@ const user = {
 
     async registered (context, reqData) {
       try {
-        let { data } = await API.registered(reqData)
+        let { data } = await API['system/user'].registered(reqData)
         return Promise.resolve(data.data)
       } catch (error) {
         return Promise.reject(error)

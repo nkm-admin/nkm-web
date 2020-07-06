@@ -28,7 +28,7 @@ const dictionary = {
   actions: {
     async getTree ({ commit }) {
       try {
-        let { data } = await API.getDictionaryTree()
+        let { data } = await API['system/dictionary'].getDictionaryTree()
         commit(SET_TREE, data.data)
         sessionStorage.setItem('dictionary', JSON.stringify(data.data))
         return Promise.resolve(data.data)
@@ -39,7 +39,7 @@ const dictionary = {
 
     async save (context, reqData) {
       try {
-        let { data } = await API.saveDictionary(reqData)
+        let { data } = await API['system/dictionary'].saveDictionary(reqData)
         return Promise.resolve(data)
       } catch (error) {
         return Promise.reject(error)
@@ -48,7 +48,7 @@ const dictionary = {
 
     async del (context, reqData) {
       try {
-        let { data } = await API.delDictionary(reqData)
+        let { data } = await API['system/dictionary'].delDictionary(reqData)
         return Promise.resolve(data)
       } catch (error) {
         return Promise.reject(error)
