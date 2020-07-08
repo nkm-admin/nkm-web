@@ -34,21 +34,16 @@ $--color-danger: $color-error;
 .el-table--enable-row-hover .el-table__body tr:hover > td,
 .el-select-dropdown,
 .el-select-dropdown__item.hover,
-.el-select-dropdown__item:hover {
+.el-select-dropdown__item:hover,
+.el-textarea__inner {
   background-color: var(--color-background-content) !important;
 }
 
-.el-dialog__wrapper .el-dialog__header {
+.el-dialog__wrapper .el-dialog__header,
+.el-textarea__inner,
+.el-card,
+.el-card .el-card__header {
   border-color: var(--color-border) !important;
-}
-
-
-.el-card {
-  border-color: var(--color-border);
-
-  .el-card__header {
-    border-color: var(--color-border);
-  }
 }
 
 .el-tree {
