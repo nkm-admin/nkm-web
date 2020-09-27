@@ -1,5 +1,14 @@
 <template>
-  <svg class="x-svg-icon" aria-hidden="true" :style="customStyle">
+  <svg
+    class="x-svg-icon"
+    aria-hidden="true"
+    :style="{
+      ...customStyle,
+      width,
+      height,
+      verticalAlign: align
+    }"
+  >
     <use :xlink:href="`#icon-${icon}`"></use>
   </svg>
 </template>
@@ -15,6 +24,18 @@ export default {
     customStyle: {
       type: Object,
       default: () => ({})
+    },
+    width: {
+      type: String,
+      default: null
+    },
+    height: {
+      type: String,
+      default: null
+    },
+    align: {
+      type: String,
+      default: null
     }
   }
 }
