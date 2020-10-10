@@ -34,6 +34,7 @@ module.exports = {
   productionSourceMap: false,
   configureWebpack: () => {
     return {
+      devtool: 'source-map',
       plugins: [
         // new CompressionWebpackPlugin({
         //   filename: '[path].gz[query]',
