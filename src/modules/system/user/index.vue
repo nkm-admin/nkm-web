@@ -2,7 +2,7 @@
   <div class="container">
     <el-button type="primary" icon="el-icon-plus" class="m-b-15px" @click="isShowRegistered = true">新增用户</el-button>
     <registered v-model="isShowRegistered" @on-success="init" />
-    <el-table :data="list" border class="w-f-100">
+    <el-table :data="list" border class="w-100">
       <el-table-column type="index" label="序号" align="center"></el-table-column>
       <el-table-column prop="loginName" label="登录账号"></el-table-column>
       <el-table-column prop="displayName" label="用户名称"></el-table-column>
@@ -65,9 +65,9 @@
     >
       <el-form ref="roleForm" :model="roleForm" :rules="roleRules" label-width="100px">
         <el-form-item label="选择角色" prop="role">
-          <el-radio-group v-model="roleForm.role">
-            <el-radio v-for="item in roleList" :key="item.id" :label="item.code">{{ item.name }}</el-radio>
-          </el-radio-group>
+          <el-checkbox-group v-model="roleForm.role">
+            <el-checkbox v-for="item in roleList" :key="item.id" :label="item.code">{{ item.name }}</el-checkbox>
+          </el-checkbox-group>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="_saveRole">保存</el-button>
@@ -97,7 +97,7 @@ export default {
       },
       selectedUser: {}, // 当前选中的用户
       roleForm: {
-        role: ''
+        role: []
       },
       roleRules: {
         role: [
@@ -137,7 +137,8 @@ export default {
           window.common.showLoading('保存中...')
           this.allocationRole({
             ...this.roleForm,
-            id: this.selectedUser.id
+            id: this.selectedUser.id,
+            role: this.roleForm.role.join(',')
           }).then(async () => {
             this._reset()
             window.common.showMessage({
