@@ -31,7 +31,7 @@
           <el-input v-model="formModel.code"></el-input>
         </el-form-item>
         <el-form-item label="父级字典" prop="parentId">
-          <el-select v-model="formModel.parentId" clearable filterable placeholder="请选择父级字典" class="w-f-100">
+          <el-select v-model="formModel.parentId" clearable filterable placeholder="请选择父级字典" class="w-100">
             <el-option :value="0" label="无"></el-option>
             <el-option
               v-for="item in flatList"

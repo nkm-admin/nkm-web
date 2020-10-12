@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="form-wrapper">
-      <div class="logo t-center">
+      <div class="logo align-center">
         <img src="../../assets/images/logo.png" width="60" alt="">
       </div>
       <el-form ref="form" :model="formModel" :rules="formRules" size="medium">
@@ -20,7 +20,7 @@
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" class="w-f-100" @click="_login">登录</el-button>
+          <el-button type="primary" class="w-100" @click="_login">登录</el-button>
         </el-form-item>
       </el-form>
     </div>

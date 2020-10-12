@@ -9,7 +9,7 @@
           <el-input v-model="formModel.code"></el-input>
         </el-form-item>
         <el-form-item label="资源类型" prop="type">
-          <el-select v-model="formModel.type" clearable class="w-f-100" placeholder="请选择资源类型">
+          <el-select v-model="formModel.type" clearable class="w-100" placeholder="请选择资源类型">
             <el-option
               v-for="item in resourceTypeList"
               :key="item.id"
@@ -26,7 +26,7 @@
             clearable
             filterable
             placeholder="请选择父级资源"
-            class="w-f-100"
+            class="w-100"
           >
             <el-option
               v-for="item in resourceList"
@@ -42,7 +42,7 @@
           <el-input v-model="formModel.path"></el-input>
         </el-form-item>
         <el-form-item label="图标" prop="icon">
-          <el-select v-model="formModel.icon" clearable filterable class="w-f-100">
+          <el-select v-model="formModel.icon" clearable filterable class="w-100">
             <el-option
               v-for="(item, index) in iconList"
               :key="index"

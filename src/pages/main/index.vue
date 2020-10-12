@@ -17,7 +17,7 @@
             <bread-crumb class="flex-center m-l-15px" />
           </el-col>
 
-          <el-col :span="10" class="right-info flex t-right">
+          <el-col :span="10" class="right-info flex align-right">
             <a href="https://github.com/nkm-admin" target="_blank" class="m-r-10px" style="display:inherit;">
               <x-svg-icon
                 icon="github"
@@ -26,7 +26,7 @@
                 }"
               />
             </a>
-            <div class="mode-btn m-r-10px t-center c-pointer">
+            <div class="mode-btn m-r-10px align-center c-pointer">
               <el-tooltip effect="dark" content="模式切换" placement="bottom">
                 <i v-if="mode === 'dark'" class="el-icon-sunny" @click="_toggleMode('day')"></i>
                 <i v-else-if="mode === 'day'" class="el-icon-moon" @click="_toggleMode('dark')"></i>
@@ -51,7 +51,7 @@
         </el-row>
       </el-header>
       <el-main>
-        <div :class="['wrapper', 'h-f-100', noPadding && 'no-padding', noBackground && 'no-background']">
+        <div :class="['wrapper', 'h-100', noPadding && 'no-padding', noBackground && 'no-background']">
           <router-view />
         </div>
       </el-main>

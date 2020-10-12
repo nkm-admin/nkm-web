@@ -1,7 +1,7 @@
 <template>
   <el-pagination
     background
-    class="t-right"
+    class="align-right"
     layout="prev, pager, next"
     v-bind="$attrs"
     v-on="$listeners"
