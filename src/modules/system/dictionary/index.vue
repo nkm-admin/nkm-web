@@ -109,6 +109,7 @@ export default {
 
     // 自定义tree结构
     _renderContent (h, { node, data }) {
+      // debugger
       return (
         <div class="custom-tree-node" style="flex: 1;">
           <div
@@ -120,7 +121,12 @@ export default {
               <i class="el-icon-circle-plus-outline" onclick={ $event => this._add($event, data) }></i>
             </el-tooltip>
             <el-tooltip content="删除子节点" placement="bottom" enterable={ false }>
-              <i class="m-l-10px el-icon-circle-close" onclick={ $event => this._del($event, data.id) }></i>
+              <i
+                class="m-l-10px el-icon-circle-close"
+                onclick={
+                  $event => !data.disabled && this._del($event, data.id)
+                }
+              ></i>
             </el-tooltip>
           </div>
         </div>
@@ -142,12 +148,7 @@ export default {
     // 重置表单
     _reset () {
       this.$refs.form.resetFields()
-      this.formModel = {
-        name: '',
-        code: '',
-        parentId: '',
-        sort: 0
-      }
+      this.formModel = this.$options.data().formModel
     },
 
     // 新增字典
@@ -162,10 +163,19 @@ export default {
     // 删除字典
     async _del (e, id) {
       e.stopPropagation()
-      window.common.showLoading('删除中...')
-      await this.del({ id })
-      this.getTree()
-      window.common.hideLoading()
+      window.common.confirm({
+        title: '警告',
+        type: 'warning',
+        message: '确认删除该字典吗？',
+        callback: async action => {
+          if (action === 'confirm') {
+            window.common.showLoading('删除中...')
+            await this.del({ id })
+            this.getTree()
+            window.common.hideLoading()
+          }
+        }
+      })
     },
 
     // 保存
