@@ -113,7 +113,7 @@ export default {
         <div class="custom-tree-node" style="flex: 1;">
           <div
             slot="reference"
-            class={ ['tree-item', 'flex', `level-${node.level}`] }
+            class={ ['tree-item flex f-a-center p-r-5px', `level-${node.level}`] }
           >
             <span class="tree-label flex-1">&nbsp;{ node.label }</span>
             <el-tooltip content="添加子节点" placement="bottom" enterable={ false }>
