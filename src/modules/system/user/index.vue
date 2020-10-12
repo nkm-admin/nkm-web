@@ -66,7 +66,14 @@
       <el-form ref="roleForm" :model="roleForm" :rules="roleRules" label-width="100px">
         <el-form-item label="选择角色" prop="role">
           <el-checkbox-group v-model="roleForm.role">
-            <el-checkbox v-for="item in roleList" :key="item.id" :label="item.code">{{ item.name }}</el-checkbox>
+            <el-checkbox
+              v-for="item in roleList"
+              :key="item.id"
+              :label="item.code"
+              :disabled="!!selectedUser.isSystemAdmin && item.code === 'systemAdministrator'"
+            >
+              {{ item.name }}
+            </el-checkbox>
           </el-checkbox-group>
         </el-form-item>
         <el-form-item>
@@ -218,7 +225,7 @@ export default {
       this.dialog.isShow = false
       this.selectedUser = {}
       this.roleForm = {
-        role: ''
+        role: []
       }
     }
   }
