@@ -8,10 +8,19 @@ export default {
     })
   },
 
+  // 删除用户
+  del (data) {
+    return request({
+      url: '/system/user/del',
+      method: 'POST',
+      data
+    })
+  },
+
   // 修改用户状态
   modifystatus (data) {
     return request({
-      url: '/system/user/modify',
+      url: '/system/user/modify-status',
       method: 'POST',
       data
     })

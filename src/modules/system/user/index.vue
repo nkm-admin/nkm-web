@@ -9,7 +9,7 @@
       <el-table-column label="账号状态" width="100" align="center">
         <template v-slot="{ row }">
           <x-dot-tag v-if="row.status === 1" type="success">启用</x-dot-tag>
-          <x-dot-tag v-else-if="row.status === 2" type="danger">禁用</x-dot-tag>
+          <x-dot-tag v-else-if="row.status === 0" type="danger">禁用</x-dot-tag>
         </template>
       </el-table-column>
       <el-table-column label="注册时间" width="150">
@@ -34,12 +34,12 @@
                 type="primary"
                 size="mini"
                 :loading="row.btnLoading"
-                @click="_modifyStatus(row, 2)"
+                @click="_modifyStatus(row, 0)"
               >
                 禁用
               </el-link>
               <el-link
-                v-else-if="row.status === 2"
+                v-else-if="row.status === 0"
                 type="primary"
                 size="mini"
                 :loading="row.btnLoading"
@@ -49,7 +49,7 @@
               </el-link>
             </template>
             <el-divider direction="vertical"></el-divider>
-            <el-link type="primary" size="mini" @click="_modifyStatus(row, 3)">删除</el-link>
+            <el-link type="primary" size="mini" @click="_delUser(row.id)">删除</el-link>
             <el-divider direction="vertical"></el-divider>
             <el-link type="primary" size="mini" @click="_resetPassword(row.id)">重置密码</el-link>
           </template>
@@ -122,7 +122,7 @@ export default {
     this.init()
   },
   methods: {
-    ...mapActions('system/user', ['getUserList', 'modifyStatus', 'resetPassword', 'allocationRole']),
+    ...mapActions('system/user', ['getUserList', 'modifyStatus', 'resetPassword', 'allocationRole', 'delUser']),
     async init () {
       window.common.showLoading('用户列表加载中...')
       this.list = await this.getUserList()
@@ -160,39 +160,47 @@ export default {
       })
     },
 
-    // 启用、删除、禁用
-    _modifyStatus (row, mark) {
-      const request = () => {
-        row.btnLoading = true
-        this.modifyStatus({
-          id: row.id,
-          mark,
-          loginName: row.userLoginName
-        }).then(async () => {
-          row.btnLoading = false
-          window.common.showLoading('用户列表加载中...')
-          this.list = await this.getUserList()
-          window.common.hideLoading()
-        }).catch(() => (row.btnLoading = false))
-      }
-      if (mark === 1) {
-        request()
-      } else {
-        let message = ''
-        if (mark === 2) {
-          message = '是否禁用该用户？'
-        } else if (mark === 3) {
-          message = '是否删除该用户？'
-        }
-        window.common.confirm({
-          title: '警告',
-          message,
-          type: 'warning',
-          callback: action => {
-            action === 'confirm' && request()
+    _delUser (id) {
+      window.common.confirm({
+        title: '警告',
+        message: '确认删除该用户吗？',
+        type: 'warning',
+        callback: async action => {
+          if (action === 'confirm') {
+            await this.delUser({
+              id
+            })
+            window.common.showMessage({
+              type: 'success',
+              message: '用户删除成功'
+            })
+            this.init()
           }
-        })
-      }
+        }
+      })
+    },
+
+    // 启用、禁用
+    _modifyStatus (row, status) {
+      window.common.confirm({
+        title: '警告',
+        message: `是否${status ? '启用' : '禁用'}该用户？`,
+        type: 'warning',
+        callback: async action => {
+          if (action === 'confirm') {
+            row.btnLoading = true
+            this.modifyStatus({
+              id: row.id,
+              status,
+            }).then(async () => {
+              row.btnLoading = false
+              window.common.showLoading('用户列表加载中...')
+              this.list = await this.getUserList()
+              window.common.hideLoading()
+            }).catch(() => (row.btnLoading = false))
+          }
+        }
+      })
     },
 
     // 重置密码

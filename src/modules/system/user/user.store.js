@@ -16,6 +16,15 @@ const user = {
       }
     },
 
+    async delUser (context, reqData) {
+      try {
+        let { data } = await API['system/user'].del(reqData)
+        return Promise.resolve(data.data)
+      } catch (error) {
+        return Promise.reject(error)
+      }
+    },
+
     async modifyStatus (context, reqData) {
       try {
         let { data } = await API['system/user'].modifystatus(reqData)
