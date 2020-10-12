@@ -1,4 +1,4 @@
-# nkm后台管理系统初始化模版-web端
+# nkm后台管理系统-web端
 
 * 测试账号：testAdmin/nkm-123456
 * 脚手架采取3.x，项目已配置vue-router + vuex + eslint + axios + element-ui + sass(scss)
