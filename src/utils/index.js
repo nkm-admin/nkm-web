@@ -25,12 +25,15 @@ export const getQueryParams = params => {
 }
 
 // 深拷贝
-export const deepCopy = obj => {
-  let result = Array.isArray(obj) ? [] : {}
-  for (let [key, value] of Object.entries(obj)) {
-    result[key] = typeof value === 'object' ? deepCopy(value) : value
+export const deepCopy = data => {
+  if (typeof data === 'object') {
+    let result = Array.isArray(data) ? [] : {}
+    for (const i in data) {
+      result[i] = deepCopy(data[i])
+    }
+    return result
   }
-  return result
+  return data
 }
 
 // 倒计时
