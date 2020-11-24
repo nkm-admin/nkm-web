@@ -86,3 +86,16 @@ export function sortTreeArr (arr) {
 
   return sortArr(arr)
 }
+
+/**
+ * 判断是否为空
+ * @param {*} value 数据源
+ * @return {boolean}
+ */
+export function isEmpty (value) {
+  if (Array.isArray(value)) return value.length === 0
+
+  if (isObject(value)) return JSON.stringify(value) === '{}'
+
+  return [null, undefined, ''].includes(value)
+}
