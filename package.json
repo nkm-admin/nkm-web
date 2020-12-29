@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
     "build:test": "vue-cli-service build --mode test",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "push": "git push && git push gitlab master"
   },
   "dependencies": {
     "@xuanmo/datejs": "^1.0.3",
