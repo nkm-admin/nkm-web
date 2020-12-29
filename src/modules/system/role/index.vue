@@ -34,13 +34,7 @@
       </div>
       <div class="tree">
         <el-form label-width="100px">
-          <el-form-item>
-            <template #label>
-              <span>选择资源 </span>
-              <el-tooltip placement="top" content="点击复选框全选；点击名称只选中自己，不关联子级">
-                <i class="el-icon-question"></i>
-              </el-tooltip>
-            </template>
+          <el-form-item label="选择资源">
             <el-tree
               ref="tree"
               node-key="id"
@@ -51,12 +45,9 @@
               :check-on-click-node="true"
               :auto-expand-parent="true"
               :expand-on-click-node="false"
-              :check-strictly="true"
+              :check-strictly="false"
               :props="defaultProps"
               :render-content="_renderContent"
-              @node-click="_nodeClick"
-              @check-change="_checkNode"
-              @check="_checkboxClick"
             >
             </el-tree>
           </el-form-item>
@@ -71,6 +62,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import { isEmpty, deepCopy } from '@/utils'
 export default {
   name: 'Role',
   data () {
@@ -79,8 +71,6 @@ export default {
         children: 'children',
         label: 'name'
       },
-      isTreeNodeClick: true,
-      checkNodes: [],
       // 当前选中的角色
       currentRole: {
         name: '新增角色'
@@ -121,15 +111,29 @@ export default {
       window.common.hideLoading()
     },
 
+    _findChildrenCodes (data) {
+      const permission = deepCopy(data.permission)
+      const _deep = arr => {
+        arr.forEach(item => {
+          if (!isEmpty(item.children)) {
+            const index = permission.indexOf(item.id)
+            if (index !== -1) permission.splice(index, 1)
+            _deep(item.children)
+          }
+        })
+      }
+      _deep(this.tree)
+      return permission
+    },
+
     _eidt (data) {
-      this.isTreeNodeClick = false
       this.$refs.tree.setCheckedKeys([])
       this.currentRole = data
       this.formModel.name = data.name
       this.formModel.code = data.code
+
       // 转换角色资源code
-      this.checkNodes = data.permission.map(item => +item)
-      this.$refs.tree.setCheckedKeys(this.checkNodes)
+      this.$refs.tree.setCheckedKeys(this._findChildrenCodes(data))
     },
 
     async _del () {
@@ -158,7 +162,7 @@ export default {
           window.common.showLoading('保存中...')
           await this.saveRole({
             ...this.formModel,
-            ids: this.$refs.tree.getCheckedNodes(false, true).map(item => item.id).join(','),
+            ids: [...this.$refs.tree.getCheckedKeys(), ...this.$refs.tree.getHalfCheckedKeys()].join(','),
             id: this.currentRole.id
           })
           this.init()
@@ -173,49 +177,11 @@ export default {
     },
 
     _reset () {
-      this.checkNodes = []
-      this.isTreeNodeClick = true
       this.$refs.form.resetFields()
       this.$refs.tree.setCheckedKeys([])
       this.currentRole = {
         name: '新增角色'
       }
-    },
-
-    // 节点点击选中自己
-    _nodeClick ({ id }) {
-      this.isTreeNodeClick = false
-      const index = this.checkNodes.indexOf(id)
-      index !== -1 ? this.checkNodes.splice(index, 1) : this.checkNodes.push(id)
-      this.$refs.tree.setCheckedKeys(this.checkNodes)
-    },
-
-    _checkboxClick () {
-      this.isTreeNodeClick = true
-    },
-
-    // 点击复选框选择子级+自己
-    _checkNode ({ id, children }, checked) {
-      if (!this.isTreeNodeClick) return
-      let result = [id]
-      const getChildId = arr => {
-        arr.map(item => {
-          if (Array.isArray(item.children)) getChildId(item.children)
-          result.push(item.id)
-        })
-      }
-      getChildId(children)
-      if (checked) {
-        this.checkNodes = [...new Set([...this.checkNodes, ...result])]
-      } else {
-        result.forEach(item => {
-          const index = this.checkNodes.indexOf(item)
-          if (index !== -1) {
-            this.checkNodes.splice(index, 1)
-          }
-        })
-      }
-      this.$refs.tree.setCheckedKeys(this.checkNodes)
     },
 
     _renderContent (h, { node }) {
