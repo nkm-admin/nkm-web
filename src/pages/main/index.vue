@@ -26,12 +26,13 @@
                 }"
               />
             </a>
-            <div class="mode-btn m-r-10px align-center c-pointer">
+            <!-- TODO: 黑夜模式适配还不完善，暂时取消适配 -->
+            <!-- <div class="mode-btn m-r-10px align-center c-pointer">
               <el-tooltip effect="dark" content="模式切换" placement="bottom">
                 <i v-if="mode === 'dark'" class="el-icon-sunny" @click="_toggleMode('day')"></i>
                 <i v-else-if="mode === 'day'" class="el-icon-moon" @click="_toggleMode('dark')"></i>
               </el-tooltip>
-            </div>
+            </div> -->
             <div class="user-info">
               <el-dropdown trigger="click" @command="_dropdown">
                 <div class="user-name">

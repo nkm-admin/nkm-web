@@ -11,79 +11,80 @@ $--color-danger: $color-error;
 
 @import "~element-ui/packages/theme-chalk/src/index";
 
-.el-card,
-.el-dropdown,
-.el-table,
-.el-breadcrumb__inner,
-.el-form-item__label,
-.el-dialog__title,
-.el-select-dropdown__item {
-  color: var(--color-text) !important;
-}
+// TODO: 黑夜模式适配还不完善，暂时取消适配
+// .el-card,
+// .el-dropdown,
+// .el-table,
+// .el-breadcrumb__inner,
+// .el-form-item__label,
+// .el-dialog__title,
+// .el-select-dropdown__item {
+//   color: var(--color-text) !important;
+// }
 
-.el-dialog,
-.el-loading-mask,
-.el-card,
-.el-tree,
-.el-input__inner,
-.el-submenu.is-active > .el-submenu__title,
-.el-menu-item.is-active,
-.el-menu-item:hover,
-.el-menu-item:focus,
-.el-submenu__title:hover,
-.el-table--enable-row-hover .el-table__body tr:hover > td,
-.el-select-dropdown,
-.el-select-dropdown__item.hover,
-.el-select-dropdown__item:hover,
-.el-textarea__inner {
-  background-color: var(--color-background-content) !important;
-}
+// .el-dialog,
+// .el-loading-mask,
+// .el-card,
+// .el-tree,
+// .el-input__inner,
+// .el-submenu.is-active > .el-submenu__title,
+// .el-menu-item.is-active,
+// .el-menu-item:hover,
+// .el-menu-item:focus,
+// .el-submenu__title:hover,
+// .el-table--enable-row-hover .el-table__body tr:hover > td,
+// .el-select-dropdown,
+// .el-select-dropdown__item.hover,
+// .el-select-dropdown__item:hover,
+// .el-textarea__inner {
+//   background-color: var(--color-background-content) !important;
+// }
 
-.el-dialog__wrapper .el-dialog__header,
-.el-textarea__inner,
-.el-card,
-.el-card .el-card__header {
-  border-color: var(--color-border) !important;
-}
+// .el-dialog__wrapper .el-dialog__header,
+// .el-textarea__inner,
+// .el-card,
+// .el-card .el-card__header {
+//   border-color: var(--color-border) !important;
+// }
 
-.el-tree {
-  .el-tree-node.is-current > .el-tree-node__content,
-  .el-tree-node__content:hover {
-    background-color: var(--color-background) !important;
-  }
-}
+// .el-tree {
+//   .el-tree-node.is-current > .el-tree-node__content,
+//   .el-tree-node__content:hover {
+//     background-color: var(--color-background) !important;
+//   }
+// }
 
-.el-input__inner {
-  border-color: var(--color-border);
-  color: var(--content-color);
+// .el-input__inner {
+//   border-color: var(--color-border);
+//   color: var(--content-color);
 
-  &:hover {
-    border-color: var(--color-theme);
-  }
-}
+//   &:hover {
+//     border-color: var(--color-theme);
+//   }
+// }
 
-.el-input-group__append,
-.el-input-group__prepend {
-  background-color: var(--color-input-bg) !important;
-  border-color: var(--color-border);
-}
+// .el-input-group__append,
+// .el-input-group__prepend {
+//   background-color: var(--color-input-bg) !important;
+//   border-color: var(--color-border);
+// }
 
 // 菜单
-.el-menu {
-  background-color: var(--color-background-content);
+// .el-menu {
+//   background-color: var(--color-background-content);
 
-  .title,
-  [class^="el-icon-"],
-  [class^="x-icon-"] {
-    color: var(--color-text);
-  }
+//   .title,
+//   [class^="el-icon-"],
+//   [class^="x-icon-"] {
+//     color: var(--color-text);
+//   }
 
-  .is-active {
-    > .title {
-      color: inherit;
-    }
-  }
-}
+//   .is-active {
+//     > .title {
+//       color: inherit;
+//     }
+//   }
+// }
 .el-submenu [class^="el-icon-"],
 .el-submenu [class^="x-icon-"] {
   vertical-align: middle;
@@ -92,11 +93,11 @@ $--color-danger: $color-error;
   text-align: center;
   font-size: 18px;
 }
-.el-menu--vertical {
-  .el-menu {
-    background-color: var(--color-background);
-  }
-}
+// .el-menu--vertical {
+//   .el-menu {
+//     background-color: var(--color-background);
+//   }
+// }
 
 // 卡片组件
 .el-card {
@@ -107,23 +108,23 @@ $--color-danger: $color-error;
 }
 
 // 表格
-.el-table--group::after,
-.el-table--border::after,
-.el-table::before {
-  background-color: var(--color-border);
-}
-.el-table,
-.el-table tr,
-.el-table th {
-  background-color: inherit;
-}
+// .el-table--group::after,
+// .el-table--border::after,
+// .el-table::before {
+//   background-color: var(--color-border);
+// }
+// .el-table,
+// .el-table tr,
+// .el-table th {
+//   background-color: inherit;
+// }
 
-.el-table,
-.el-table tr,
-.el-table th,
-.el-table td {
-  border-color: var(--color-border) !important;
-}
+// .el-table,
+// .el-table tr,
+// .el-table th,
+// .el-table td {
+//   border-color: var(--color-border) !important;
+// }
 
 // 消息提示组件
 .el-message {
@@ -199,26 +200,26 @@ $--color-danger: $color-error;
   }
 }
 
-.el-select-dropdown {
-  border-color: var(--color-border);
-}
+// .el-select-dropdown {
+//   border-color: var(--color-border);
+// }
 
-.el-popper[x-placement^="bottom"] .popper__arrow::after,
-.el-popper[x-placement^="bottom"] .popper__arrow {
-  border-bottom-color: var(--color-border);
-}
-.el-dropdown-menu {
-  background-color: var(--color-background-content);
-  border-color: var(--color-border);
-  .el-dropdown-menu__item {
-    border-color: var(--color-border);
-    color: var(--color-text);
-  }
-  .el-dropdown-menu__item--divided:before {
-    background-color: var(--color-background-content);
-  }
-  .el-dropdown-menu__item:not(.is-disabled):hover,
-  .el-dropdown-menu__item:focus {
-    background-color: var(--color-background);
-  }
-}
+// .el-popper[x-placement^="bottom"] .popper__arrow::after,
+// .el-popper[x-placement^="bottom"] .popper__arrow {
+//   border-bottom-color: var(--color-border);
+// }
+// .el-dropdown-menu {
+//   background-color: var(--color-background-content);
+//   border-color: var(--color-border);
+//   .el-dropdown-menu__item {
+//     border-color: var(--color-border);
+//     color: var(--color-text);
+//   }
+//   .el-dropdown-menu__item--divided:before {
+//     background-color: var(--color-background-content);
+//   }
+//   .el-dropdown-menu__item:not(.is-disabled):hover,
+//   .el-dropdown-menu__item:focus {
+//     background-color: var(--color-background);
+//   }
+// }
