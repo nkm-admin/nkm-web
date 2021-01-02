@@ -27,13 +27,14 @@ module.exports = {
     'arrow-spacing': 'error',
     'key-spacing': 'error',
     'no-mixed-spaces-and-tabs': 'error',
-    'space-before-function-paren': 'error',
+    'space-before-function-paren': 'off',
     'space-infix-ops': 'error',
     'space-unary-ops': 'error',
     'spaced-comment': 'error',
     'no-var': 'error',
     'no-useless-constructor': 'error',
-    quotes: ['error', 'single']
+    quotes: ['error', 'single'],
+    'no-unused-vars': 1
   },
   parserOptions: {
     parser: 'babel-eslint',

@@ -8,7 +8,7 @@ module.exports = {
   devServer: {
     disableHostCheck: true,
     overlay: {
-      warnings: true,
+      warnings: false,
       errors: true
     },
     proxy: {
