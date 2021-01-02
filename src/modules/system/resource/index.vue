@@ -42,7 +42,7 @@
 
       <edit
         :visible.sync="isShowEdit"
-        :resource-list="list"
+        :resource-tree="tree"
         :parent-id.sync="editParentId"
         :data.sync="editData"
         @success="init"
@@ -83,6 +83,7 @@ export default {
   },
   data () {
     return {
+      value: '13',
       tree: [],
       defaultProps: {
         children: 'children',

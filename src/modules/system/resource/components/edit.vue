@@ -21,22 +21,15 @@
           </el-select>
         </el-form-item>
         <el-form-item label="父级资源" prop="parentId">
-          <el-select
+          <x-select-tree
             v-model="formModel.parentId"
-            clearable
-            filterable
-            placeholder="请选择父级资源"
+            :data="resourceTree"
             class="w-100"
-          >
-            <el-option
-              v-for="item in resourceList"
-              :key="item.id"
-              :value="item.id"
-              :label="item.name"
-            >
-              {{ item.name }}
-            </el-option>
-          </el-select>
+            placeholder="请选择父级资源"
+            :tree-props="{
+              label: 'name'
+            }"
+          />
         </el-form-item>
         <el-form-item label="地址" prop="path">
           <el-input v-model="formModel.path"></el-input>
@@ -93,7 +86,7 @@ export default {
       type: Object,
       default: () => ({})
     },
-    resourceList: {
+    resourceTree: {
       type: Array,
       default: () => ([])
     }
@@ -188,7 +181,4 @@ export default {
 $--font-path: '../../../../../node_modules/element-ui/lib/theme-chalk/fonts';
 @import "../../../../../node_modules/element-ui/packages/theme-chalk/src/icon";
 @import "../../../../assets/scss/iconfont";
-</style>
-<style lang="scss" scoped>
-
 </style>
