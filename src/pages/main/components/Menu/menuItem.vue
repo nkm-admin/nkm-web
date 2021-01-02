@@ -39,5 +39,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+/deep/ .el-menu-item [class^="x-icon-"] {
+  width: 24px;
+  margin-right: 5px;
+  text-align: center;
+  font-size: 18px;
+  vertical-align: middle;
+}
 </style>
