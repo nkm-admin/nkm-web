@@ -23,7 +23,7 @@
       <el-col :span="17">
         <el-card shadow="never">
           <template #header>
-            <h2 class="title f-s-18px">{{ title }}</h2>
+            <h2 class="title">{{ title }}</h2>
           </template>
           <information v-show="title === '基本设置'" />
           <security v-show="title === '安全设置'" />
@@ -60,6 +60,9 @@ export default {
 
 <style lang="scss" scoped>
 .container {
+  .title {
+    font-size: 16px;
+  }
   .setting-wrapper {
     /deep/ .el-card__body {
       padding: 10px 0;
@@ -69,7 +72,7 @@ export default {
         padding: 10px 20px;
 
         &.is-active {
-          background: var(--color-background);
+          background: #f7f7f7;
           color: var(--color-theme);
         }
       }
