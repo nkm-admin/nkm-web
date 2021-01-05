@@ -9,6 +9,8 @@ $--color-warning: $color-warning;
 $--color-danger: $color-error;
 // $--color-info: $color-info;
 
+$--button-small-font-size: $font-size-base;
+
 @import "~element-ui/packages/theme-chalk/src/index";
 
 // TODO: 黑夜模式适配还不完善，暂时取消适配
