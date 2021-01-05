@@ -1,5 +1,10 @@
 <template>
-  <el-dialog v-bind="$attrs" v-on="$listeners">
+  <el-dialog
+    :close-on-click-modal="false"
+    :close-on-press-escape="false"
+    v-bind="$attrs"
+    v-on="$listeners"
+  >
     <slot></slot>
   </el-dialog>
 </template>
@@ -9,7 +14,3 @@ export default {
   name: 'XDialog'
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>
