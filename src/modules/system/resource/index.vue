@@ -63,7 +63,8 @@ export default {
         'system:resource:menu': '菜单',
         'system:resource:page': '页面',
         'system:resource:btn': '按钮',
-        'system:resource:api': '接口'
+        'system:resource:api': '接口',
+        'placeholder': '占位'
       }
       return type[val]
     },
