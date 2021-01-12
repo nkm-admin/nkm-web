@@ -9,7 +9,7 @@
         check-strictly
         show-checkbox
         highlight-current
-        :default-expand-all="false"
+        default-expand-all
         :check-on-click-node="false"
         :expand-on-click-node="false"
         :props="defaultProps"
@@ -20,7 +20,13 @@
       </el-tree>
     </div>
     <div class="edit-wrapper">
-      <el-form ref="form" :model="formModel" :rules="formRules" label-width="100px">
+      <el-form
+        ref="form"
+        :model="formModel"
+        :rules="formRules"
+        label-width="100px"
+        :disabled="formModel.disabled"
+      >
         <el-form-item>
           <h2 class="title">{{ title }}</h2>
         </el-form-item>
@@ -109,7 +115,6 @@ export default {
 
     // 自定义tree结构
     _renderContent (h, { node, data }) {
-      // debugger
       return (
         <div class="custom-tree-node" style="flex: 1;">
           <div
@@ -117,17 +122,22 @@ export default {
             class={ ['tree-item flex f-a-center p-r-5px', `level-${node.level}`] }
           >
             <span class="tree-label flex-1">&nbsp;{ node.label }</span>
-            <el-tooltip content="添加子节点" placement="bottom" enterable={ false }>
-              <i class="el-icon-circle-plus-outline" onclick={ $event => this._add($event, data) }></i>
-            </el-tooltip>
-            <el-tooltip content="删除子节点" placement="bottom" enterable={ false }>
-              <i
-                class="m-l-10px el-icon-circle-close"
-                onclick={
-                  $event => !data.disabled && this._del($event, data.id)
-                }
-              ></i>
-            </el-tooltip>
+            {
+              !data.disabled &&
+              <span>
+                <el-tooltip content="添加子节点" placement="bottom" enterable={ false }>
+                  <i class="el-icon-circle-plus-outline" onclick={ $event => this._add($event, data) }></i>
+                </el-tooltip>
+                <el-tooltip content="删除子节点" placement="bottom" enterable={ false }>
+                  <i
+                    class="m-l-10px el-icon-circle-close"
+                    onclick={
+                      $event => !data.disabled && this._del($event, data.id)
+                    }
+                  ></i>
+                </el-tooltip>
+              </span>
+            }
           </div>
         </div>
       )
