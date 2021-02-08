@@ -4,6 +4,8 @@
     :value="innerValue"
     :placeholder="placeholder"
     popper-class="x-select-tree"
+    :clearable="clearable"
+    @clear="_clear"
   >
     <el-option :value="value" :label="checkedLabel">
       <el-tree
@@ -13,7 +15,6 @@
         :node-key="valueKey"
         show-checkbox
         check-strictly
-        default-expand-all
         check-on-click-node
         @check="_change"
       />
@@ -50,6 +51,10 @@ export default {
     placeholder: {
       type: String,
       default: ''
+    },
+    clearable: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -101,8 +106,14 @@ export default {
     _change(node) {
       const value = node[this.innerTreeProps.value]
       this.$refs.tree.setCheckedKeys([value])
-      this.checkedLabel = this._findLabelByValue(value, this.data)
       this.$emit('input', value + '')
+      this.$refs.select.blur()
+    },
+
+    _clear() {
+      this.$refs.tree.setCheckedKeys([])
+      this.checkedLabel = ''
+      this.$emit('input', '')
     },
 
     // 通过value查找路径名称
@@ -117,28 +128,32 @@ export default {
             path.push(item[this.innerTreeProps.parentId])
             path.push(item[this.innerTreeProps.value])
             isContinue = false
-            return
+            throw new Error('success')
           }
-          if (Array.isArray(children) && children.length) {
-            if (isContinue) {
+          if (isContinue) {
+            if (Array.isArray(children) && children.length) {
               path.push(item[this.innerTreeProps.parentId])
               deep(children)
+            } else {
+              path = []
             }
-          } else {
-            path = []
           }
         }
       }
-      deep(data)
-      path = [...new Set(path)]
-      const flatData = this._flat(data)
-      let labels = path.map(item => {
-        const flat = flatData.find(_flat => item == _flat[this.innerTreeProps.value])
-        item = flat ? flat[this.innerTreeProps.label] : ''
-        return item
-      })
-      this.$refs.select.blur()
-      return labels.join(this.separator).replace(new RegExp(`^${this.separator}|${this.separator}$`), '')
+      try {
+        deep(data)
+      } catch (err) {
+        if (err.message === 'success') {
+          path = [...new Set(path)]
+          const flatData = this._flat(data)
+          let labels = path.map(item => {
+            const flat = flatData.find(_flat => item == _flat[this.innerTreeProps.value])
+            item = flat ? flat[this.innerTreeProps.label] : ''
+            return item
+          })
+          return labels.join(this.separator).replace(new RegExp(`^${this.separator}|${this.separator}$`), '')
+        }
+      }
     },
 
     // 打平数组
@@ -162,9 +177,8 @@ export default {
 <style lang="scss">
 .x-select-tree {
   .el-select-dropdown__item {
-    height: auto;
+    height: auto !important;
     padding: 0;
-    overflow: hidden;
 
     &.selected {
       font-weight: initial;
