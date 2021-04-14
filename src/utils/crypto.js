@@ -1,16 +1,22 @@
 import CryptoJS from 'crypto-js'
+import MD5 from 'crypto-js/md5'
+import AES from 'crypto-js/aes'
+import { SECRET_KEY } from '@/settings'
 
-const SECRET_KEY = CryptoJS.MD5('@$!nkm-123456').toString()
+export const md5 = value => MD5(`${value}${SECRET_KEY}`).toString()
 
-class AES {
+class AESHandle {
+  SECRET_KEY = MD5(SECRET_KEY).toString()
+
   encrypt (data) {
     if (!data) return ''
-    return CryptoJS.AES.encrypt(JSON.stringify(data), SECRET_KEY).toString()
+    return AES.encrypt(JSON.stringify(data), this.SECRET_KEY).toString()
   }
+
   decrypt (cipherText) {
     if (!cipherText) return ''
-    return CryptoJS.AES.decrypt(cipherText, SECRET_KEY).toString(CryptoJS.enc.Utf8)
+    return AES.decrypt(cipherText, this.SECRET_KEY).toString(CryptoJS.enc.Utf8)
   }
 }
 
-export const AESHelper = new AES()
+export const AESHelper = new AESHandle()

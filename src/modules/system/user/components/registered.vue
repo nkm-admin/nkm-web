@@ -36,6 +36,7 @@
 <script>
 import { mapActions } from 'vuex'
 import { matchPassword, matchName, matchLoginName } from '@/utils/regexp'
+import { md5 } from '@/utils/crypto'
 export default {
   name: 'Registered',
   props: {
@@ -117,7 +118,8 @@ export default {
           window.common.showLoading('保存中...')
           await this.registered({
             ...this.formModel,
-            avatar: this.avatarList[this.selectedAvatarIndex]
+            avatar: this.avatarList[this.selectedAvatarIndex],
+            password: md5(this.formModel.password)
           })
           window.common.hideLoading()
           this._reset()

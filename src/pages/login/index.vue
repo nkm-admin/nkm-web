@@ -29,6 +29,8 @@
 <script>
 import { mapActions } from 'vuex'
 import { matchLoginName, matchPassword } from '@/utils/regexp'
+import { md5 } from '@/utils/crypto'
+
 export default {
   name: 'Login',
   data () {
@@ -93,7 +95,8 @@ export default {
           window.common.showLoading('登录中...')
           this.login({
             ...this.formModel,
-            token: this.captchaToken
+            token: this.captchaToken,
+            password: md5(this.formModel.password)
           }).then(async () => {
             window.common.showLoading('正在加载数据字典...')
             await this.$store.dispatch('system/dictionary/getTree')

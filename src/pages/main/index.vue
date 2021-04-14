@@ -64,7 +64,7 @@
 import Menu from './components/Menu'
 import BreadCrumb from './components/BreadCrumb'
 import { mapState } from 'vuex'
-import { AVATAR } from '@/config'
+import { AVATAR } from '@/settings'
 import API from '@/api'
 export default {
   name: 'Main',

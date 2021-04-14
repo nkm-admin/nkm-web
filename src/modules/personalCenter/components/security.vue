@@ -21,6 +21,7 @@
 <script>
 import { matchPassword } from '@/utils/regexp'
 import { mapActions } from 'vuex'
+import { md5 } from '@/utils/crypto'
 export default {
   name: 'Security',
   data () {
@@ -65,7 +66,7 @@ export default {
         if (valid) {
           window.common.showLoading('保存中...')
           await this.modifyPassword({
-            password: this.securityForm.password
+            password: md5(this.securityForm.password)
           })
           window.common.showMessage({
             message: '密码修改成功',

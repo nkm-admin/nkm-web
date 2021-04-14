@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from '@/store'
-import { DEFAULT_INDEX_ROUTER, APP_TITLE } from '@/config'
+import { DEFAULT_INDEX_ROUTER, APP_TITLE } from '@/settings'
 import { pathToRegexp } from 'path-to-regexp'
 
 Vue.use(Router)
