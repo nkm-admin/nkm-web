@@ -49,11 +49,11 @@ nkm-admin-client
 ├─babel.settings.js
 ├─jsconfig.json
 ├─package.json
-├─vue.settings.js
+├─vue.config.js
 ├─yarn.lock
 ├─src
 |  ├─App.vue
-|  ├─settingssettings.js // 项目主要默认配置文件
+|  ├─settings.js // 项目主要默认配置文件
 |  ├─main.js
 |  ├─utils // 公用工具类
 |  |   ├─const.js
@@ -174,7 +174,7 @@ nkm-admin-client
 - modules：
   1. 每个模块的`xxx.store.js`为vuex模块，无序引入，利用`require.context`完成自动注入，目录名为store模块名
   1. 每个模块的`xxx.router.js`为路由模块
-* vue.settings.js：项目配置文件，具体使用说明可查看[https://cli.vuejs.org/zh/config/#vue-config-js](https://cli.vuejs.org/zh/config/#vue-config-js)
+* vue.config.js：项目配置文件，具体使用说明可查看[https://cli.vuejs.org/zh/config/#vue-config-js](https://cli.vuejs.org/zh/config/#vue-config-js)
 
 ## 参考指南
 * [vuejs风格指南查看](https://cn.vuejs.org/v2/style-guide/)
