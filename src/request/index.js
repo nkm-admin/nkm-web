@@ -3,6 +3,7 @@ import qs from 'qs'
 import router from '@/router'
 import store from '@/store'
 import cookie from '@/utils/cookie'
+import { hideLoading, showMessage } from '@/utils'
 
 const option = {
   timeout: 20000,
@@ -46,8 +47,8 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(response => {
   // 错误拦截判断
   if (response.data && !response.data.success) {
-    this.$_D_common.hideLoading()
-    this.$_D_common.showMessage({
+    hideLoading()
+    showMessage({
       message: response.data.message,
       type: 'error',
       onClose: () => {
@@ -76,15 +77,15 @@ axios.interceptors.response.use(response => {
     statusText: response.statusText
   }
 }, error => {
-  this.$_D_common.hideLoading()
+  hideLoading()
   const errMsg = error.message
   if (errMsg.indexOf('timeout') !== -1) {
-    this.$_D_common.showMessage({
+    showMessage({
       message: '请求超时！',
       type: 'error'
     })
   } else {
-    this.$_D_common.showMessage({
+    showMessage({
       message: error.message || '请求失败',
       type: 'error'
     })
