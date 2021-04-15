@@ -1,5 +1,6 @@
 require('colors')
-const CompressionWebpackPlugin = require('compression-webpack-plugin')
+// const CompressionWebpackPlugin = require('compression-webpack-plugin')
+const { APP_TITLE } = require('./src/settings')
 
 module.exports = {
   lintOnSave: true,
@@ -35,6 +36,7 @@ module.exports = {
   configureWebpack: () => {
     return {
       devtool: 'source-map',
+      name: APP_TITLE,
       plugins: [
         // new CompressionWebpackPlugin({
         //   filename: '[path].gz[query]',
