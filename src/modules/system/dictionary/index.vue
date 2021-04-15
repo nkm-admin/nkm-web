@@ -1,7 +1,7 @@
 <template>
   <div class="flex container min-h-100">
     <div class="tree-wrapper min-h-100">
-      <el-button type="primary" icon="el-icon-plus" class="m-b-15px" @click="_add">新增节点</el-button>
+      <el-button type="primary" class="m-b-15px" @click="_add">新增节点</el-button>
       <el-tree
         ref="tree"
         node-key="id"

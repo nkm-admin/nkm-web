@@ -30,6 +30,7 @@
 import { mapActions } from 'vuex'
 import { matchLoginName, matchPassword } from '@/utils/regexp'
 import { md5 } from '@/utils/crypto'
+import { DEFAULT_INDEX_ROUTER } from '@/settings'
 
 export default {
   name: 'Login',
@@ -101,7 +102,7 @@ export default {
             window.common.showLoading('正在加载数据字典...')
             await this.$store.dispatch('system/dictionary/getTree')
             window.common.hideLoading()
-            this.$router.replace({ name: 'Dashboard' })
+            this.$router.replace(this.$route.query.redirect || DEFAULT_INDEX_ROUTER)
           }).catch(error => {
             this._valid(error)
           })
@@ -110,7 +111,7 @@ export default {
     },
 
     _valid ({ code, message }) {
-      if (code === '10010') this.captchaErrorMsg = message
+      if (code === '10004') this.captchaErrorMsg = message
       this._getCaptcha()
     }
   }
