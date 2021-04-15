@@ -100,9 +100,9 @@ export default {
   methods: {
     ...mapActions('system/dictionary', ['getTree', 'save', 'del']),
     async init () {
-      window.common.showLoading('数据字典加载中...')
+      this.$_D_common.showLoading('数据字典加载中...')
       await this.getTree()
-      window.common.hideLoading()
+      this.$_D_common.hideLoading()
       this.flatList = []
       const deepArray = arr => {
         arr.forEach(item => {
@@ -173,16 +173,16 @@ export default {
     // 删除字典
     async _del (e, id) {
       e.stopPropagation()
-      window.common.confirm({
+      this.$_D_common.confirm({
         title: '警告',
         type: 'warning',
         message: '确认删除该字典吗？',
         callback: async action => {
           if (action === 'confirm') {
-            window.common.showLoading('删除中...')
+            this.$_D_common.showLoading('删除中...')
             await this.del({ id })
             this.getTree()
-            window.common.hideLoading()
+            this.$_D_common.hideLoading()
           }
         }
       })
@@ -192,12 +192,12 @@ export default {
     _save () {
       this.$refs.form.validate(valid => {
         if (valid) {
-          window.common.showLoading('保存中...')
+          this.$_D_common.showLoading('保存中...')
           this.save({
             ...this.formModel,
             parentId: this.formModel.parentId || 0
           }).then(() => {
-            window.common.hideLoading()
+            this.$_D_common.hideLoading()
             this._reset()
             this.init()
           })

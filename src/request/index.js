@@ -46,8 +46,8 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(response => {
   // 错误拦截判断
   if (response.data && !response.data.success) {
-    window.common.hideLoading()
-    window.common.showMessage({
+    this.$_D_common.hideLoading()
+    this.$_D_common.showMessage({
       message: response.data.message,
       type: 'error',
       onClose: () => {
@@ -76,15 +76,15 @@ axios.interceptors.response.use(response => {
     statusText: response.statusText
   }
 }, error => {
-  window.common.hideLoading()
+  this.$_D_common.hideLoading()
   const errMsg = error.message
   if (errMsg.indexOf('timeout') !== -1) {
-    window.common.showMessage({
+    this.$_D_common.showMessage({
       message: '请求超时！',
       type: 'error'
     })
   } else {
-    window.common.showMessage({
+    this.$_D_common.showMessage({
       message: error.message || '请求失败',
       type: 'error'
     })

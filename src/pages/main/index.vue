@@ -101,9 +101,9 @@ export default {
           this.$router.push({ name: 'PersonalCenter' })
           break
         case 'logout':
-          window.common.showLoading('正在退出中...')
+          this.$_D_common.showLoading('正在退出中...')
           await API.logout()
-          window.common.hideLoading()
+          this.$_D_common.hideLoading()
           this.$store.commit('authen/LOGOUT')
           this.$router.push({ name: 'Login' })
           break

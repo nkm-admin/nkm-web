@@ -102,13 +102,13 @@ export default {
   methods: {
     ...mapActions('system/role', ['getRoleList', 'saveRole', 'delRole']),
     async init () {
-      window.common.showLoading('角色列表加载中...')
+      this.$_D_common.showLoading('角色列表加载中...')
       // 获取资源树
       await this.$store.dispatch('system/resource/getResourceTree')
 
       // 获取角色列表
       await this.getRoleList()
-      window.common.hideLoading()
+      this.$_D_common.hideLoading()
     },
 
     _findChildrenCodes (data) {
@@ -137,19 +137,19 @@ export default {
     },
 
     async _del () {
-      window.common.confirm({
+      this.$_D_common.confirm({
         title: '警告',
         message: '确认要删除此角色吗？',
         type: 'warning',
         callback: async action => {
           if (action === 'confirm') {
-            window.common.showLoading('正在删除中...')
+            this.$_D_common.showLoading('正在删除中...')
             await this.delRole({
               id: this.currentRole.id
             })
             this.init()
             this._reset()
-            window.common.hideLoading()
+            this.$_D_common.hideLoading()
           }
         }
       })
@@ -159,7 +159,7 @@ export default {
     _save () {
       this.$refs.form.validate(async valid => {
         if (valid) {
-          window.common.showLoading('保存中...')
+          this.$_D_common.showLoading('保存中...')
           await this.saveRole({
             ...this.formModel,
             ids: [...this.$refs.tree.getCheckedKeys(), ...this.$refs.tree.getHalfCheckedKeys()].join(','),
@@ -167,8 +167,8 @@ export default {
           })
           this.init()
           this._reset()
-          window.common.hideLoading()
-          window.common.showMessage({
+          this.$_D_common.hideLoading()
+          this.$_D_common.showMessage({
             type: 'success',
             message: '保存成功'
           })

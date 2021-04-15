@@ -147,12 +147,12 @@ export default {
     _save () {
       this.$refs.form.validate(valid => {
         if (valid) {
-          window.common.showLoading('保存中...')
+          this.$_D_common.showLoading('保存中...')
           this.saveResource({
             ...this.formModel,
             parentId: this.formModel.parentId || 0
           }).then(() => {
-            window.common.hideLoading()
+            this.$_D_common.hideLoading()
             this._reset()
             this.$emit('success')
             this._close()

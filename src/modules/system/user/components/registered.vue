@@ -115,13 +115,13 @@ export default {
     _save () {
       this.$refs.form.validate(async valid => {
         if (valid) {
-          window.common.showLoading('保存中...')
+          this.$_D_common.showLoading('保存中...')
           await this.registered({
             ...this.formModel,
             avatar: this.avatarList[this.selectedAvatarIndex],
             password: md5(this.formModel.password)
           })
-          window.common.hideLoading()
+          this.$_D_common.hideLoading()
           this._reset()
           this.$emit('on-success', true)
         }

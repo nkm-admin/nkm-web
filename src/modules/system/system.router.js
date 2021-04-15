@@ -3,6 +3,7 @@ import User from './user/.router'
 import Resource from './resource/.router'
 import Role from './role/.router'
 import Dictionary from './dictionary/.router'
+import { showLoading } from '@/utils'
 
 export default {
   path: 'system',
@@ -11,14 +12,14 @@ export default {
     title: '系统管理'
   },
   async beforeEnter (to, name, next) {
-    window.common.showLoading('正在加载系统资源...')
+    showLoading('正在加载系统资源...')
     to.name !== 'Resource' && await store.dispatch('system/resource/getResourceTree')
     to.name !== 'Role' && await store.dispatch('system/role/getRoleList')
     next()
   },
   component: {
     render () {
-      return (<router-view/>)
+      return (<router-view />)
     }
   },
   children: [
