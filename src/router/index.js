@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import store from '@/store'
 import { DEFAULT_INDEX_ROUTER, APP_TITLE } from '@/settings'
 import { pathToRegexp } from 'path-to-regexp'
+import { hideLoading } from '@/utils'
 
 Vue.use(Router)
 
@@ -66,7 +67,7 @@ router.beforeEach((to, from, next) => {
     // 判断是否有页面访问权限
     const isPermission = store.state.authen.menuUrls.findIndex(path => pathToRegexp(path).test(to.path)) === -1
     if (isPermission && to.name !== 'NoPermissiom' && to.path !== '/404') {
-      this.$_D_common.hideLoading()
+      hideLoading()
       return next({ name: 'NoPermissiom' })
     }
 
