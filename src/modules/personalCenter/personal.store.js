@@ -1,4 +1,4 @@
-import API from '@/api/personalCenter'
+import API from '@/api'
 
 export default {
   state: {},
