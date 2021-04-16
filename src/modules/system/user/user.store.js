@@ -7,10 +7,10 @@ const user = {
     async getUserList () {
       try {
         let { data } = await API['system/user'].getUserList()
-        data.data.map(item => {
+        data.map(item => {
           item.btnLoading = false
         })
-        return Promise.resolve(data.data)
+        return Promise.resolve(data)
       } catch (error) {
         return Promise.reject(error)
       }
@@ -19,7 +19,7 @@ const user = {
     async delUser (context, reqData) {
       try {
         let { data } = await API['system/user'].del(reqData)
-        return Promise.resolve(data.data)
+        return Promise.resolve(data)
       } catch (error) {
         return Promise.reject(error)
       }
@@ -28,7 +28,7 @@ const user = {
     async modifyStatus (context, reqData) {
       try {
         let { data } = await API['system/user'].modifystatus(reqData)
-        return Promise.resolve(data.data)
+        return Promise.resolve(data)
       } catch (error) {
         return Promise.reject(error)
       }
@@ -37,7 +37,7 @@ const user = {
     async resetPassword (context, reqData) {
       try {
         let { data } = await API['system/user'].resetPassword(reqData)
-        return Promise.resolve(data.data)
+        return Promise.resolve(data)
       } catch (error) {
         return Promise.reject(error)
       }
@@ -46,7 +46,7 @@ const user = {
     async allocationRole (context, reqData) {
       try {
         let { data } = await API['system/user'].allocationRole(reqData)
-        return Promise.resolve(data.data)
+        return Promise.resolve(data)
       } catch (error) {
         return Promise.reject(error)
       }
@@ -55,7 +55,7 @@ const user = {
     async registered (context, reqData) {
       try {
         let { data } = await API['system/user'].registered(reqData)
-        return Promise.resolve(data.data)
+        return Promise.resolve(data)
       } catch (error) {
         return Promise.reject(error)
       }

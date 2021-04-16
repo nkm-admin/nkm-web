@@ -126,12 +126,12 @@ export default {
               !data.disabled &&
               <span>
                 <el-tooltip content="添加子节点" placement="bottom" enterable={ false }>
-                  <i class="el-icon-circle-plus-outline" onclick={ $event => this._add($event, data) }></i>
+                  <i class="el-icon-circle-plus-outline" onClick={ $event => this._add($event, data) }></i>
                 </el-tooltip>
                 <el-tooltip content="删除子节点" placement="bottom" enterable={ false }>
                   <i
                     class="m-l-10px el-icon-circle-close"
-                    onclick={
+                    onClick={
                       $event => !data.disabled && this._del($event, data.id)
                     }
                   ></i>

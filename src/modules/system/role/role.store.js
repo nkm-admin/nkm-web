@@ -14,8 +14,8 @@ const role = {
     async getRoleList ({ commit }) {
       try {
         let { data } = await API['system/role'].getRoleList()
-        commit(UPDATE_ROLE_LIST, data.data)
-        return Promise.resolve(data.data)
+        commit(UPDATE_ROLE_LIST, data)
+        return Promise.resolve(data)
       } catch (error) {
         return Promise.reject(error)
       }
@@ -24,7 +24,7 @@ const role = {
     async saveRole (context, reqData) {
       try {
         let { data } = await API['system/role'].saveRole(reqData)
-        return Promise.resolve(data.data)
+        return Promise.resolve(data)
       } catch (error) {
         return Promise.reject(error)
       }
@@ -33,7 +33,7 @@ const role = {
     async delRole (context, reqData) {
       try {
         let { data } = await API['system/role'].delRole(reqData)
-        return Promise.resolve(data.data)
+        return Promise.resolve(data)
       } catch (error) {
         return Promise.reject(error)
       }

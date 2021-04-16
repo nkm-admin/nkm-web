@@ -99,10 +99,10 @@ export default {
             token: this.captchaToken,
             password: md5(this.formModel.password)
           }).then(async () => {
+            this.$router.replace(this.$route.query.redirect || DEFAULT_INDEX_ROUTER)
             this.$_D_common.showLoading('正在加载数据字典...')
             await this.$store.dispatch('system/dictionary/getTree')
             this.$_D_common.hideLoading()
-            this.$router.replace(this.$route.query.redirect || DEFAULT_INDEX_ROUTER)
           }).catch(error => {
             this._valid(error)
           })

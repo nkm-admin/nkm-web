@@ -43,7 +43,7 @@ const authen = {
   actions: {
     async login ({ commit }, reqData) {
       try {
-        let { data: { data } } = await API.login(reqData)
+        let { data } = await API.login(reqData)
         commit(LOGIN, data)
         return Promise.resolve(data)
       } catch (error) {
@@ -54,7 +54,7 @@ const authen = {
     async getCaptcha (context, params) {
       try {
         let { data } = await API.getCaptcha(params)
-        return Promise.resolve(data.data)
+        return Promise.resolve(data)
       } catch (error) {
         return Promise.reject(error)
       }

@@ -29,9 +29,9 @@ const dictionary = {
     async getTree ({ commit }) {
       try {
         let { data } = await API['system/dictionary'].getDictionaryTree()
-        commit(SET_TREE, data.data)
-        sessionStorage.setItem('dictionary', JSON.stringify(data.data))
-        return Promise.resolve(data.data)
+        commit(SET_TREE, data)
+        sessionStorage.setItem('dictionary', JSON.stringify(data))
+        return Promise.resolve(data)
       } catch (error) {
         return Promise.reject(error)
       }

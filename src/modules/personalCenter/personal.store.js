@@ -1,4 +1,4 @@
-import API from '@/api'
+import API from '@/api/personalCenter'
 
 export default {
   state: {},
@@ -8,7 +8,7 @@ export default {
     async updateInfo (context, reqData) {
       try {
         let { data } = await API.personalCenter.updateInfo(reqData)
-        return Promise.resolve(data.data)
+        return Promise.resolve(data)
       } catch (error) {
         return Promise.reject(error)
       }
@@ -22,7 +22,7 @@ export default {
           formData.append(key, value)
         }
         let { data } = await API.upload(formData)
-        return Promise.resolve(data.data)
+        return Promise.resolve(data)
       } catch (error) {
         return Promise.reject(error)
       }
@@ -31,7 +31,7 @@ export default {
     async modifyPassword (context, reqData) {
       try {
         let { data } = await API.personalCenter.modifyPassword(reqData)
-        return Promise.resolve(data.data)
+        return Promise.resolve(data)
       } catch (error) {
         return Promise.reject(error)
       }

@@ -20,8 +20,8 @@ const resource = {
     async getResourceTree ({ commit }) {
       try {
         let { data } = await API['system/resource'].getResourceTree()
-        commit(UPDATE_TREE, data.data)
-        return Promise.resolve(data.data)
+        commit(UPDATE_TREE, data)
+        return Promise.resolve(data)
       } catch (error) {
         return Promise.reject(error)
       }
@@ -29,8 +29,8 @@ const resource = {
     async getResourceList ({ commit }) {
       try {
         let { data } = await API['system/resource'].getResourceList()
-        commit(UPDATE_LIST, data.data)
-        return Promise.resolve(deepCopy(data.data))
+        commit(UPDATE_LIST, data)
+        return Promise.resolve(deepCopy(data))
       } catch (error) {
         return Promise.reject(error)
       }
@@ -38,7 +38,7 @@ const resource = {
     async saveResource (context, reqData) {
       try {
         let { data } = await API['system/resource'].saveResource(reqData)
-        return Promise.resolve(data.data)
+        return Promise.resolve(data)
       } catch (error) {
         return Promise.reject(error)
       }
@@ -46,7 +46,7 @@ const resource = {
     async delResource (context, reqData) {
       try {
         let { data } = await API['system/resource'].delResource(reqData)
-        return Promise.resolve(data.data)
+        return Promise.resolve(data)
       } catch (error) {
         return Promise.reject(error)
       }

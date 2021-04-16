@@ -70,12 +70,7 @@ axios.interceptors.response.use(response => {
     })
     return Promise.reject(response.data)
   }
-  return {
-    data: response.data,
-    status: response.status,
-    headers: response.headers,
-    statusText: response.statusText
-  }
+  return response.data
 }, error => {
   hideLoading()
   const errMsg = error.message
