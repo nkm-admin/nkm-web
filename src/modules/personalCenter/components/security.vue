@@ -64,15 +64,15 @@ export default {
     _updatePassword () {
       this.$refs.security.validate(async valid => {
         if (valid) {
-          this.$_D_common.showLoading('保存中...')
+          this.$_Dcommon.showLoading('保存中...')
           await this.modifyPassword({
             password: md5(this.securityForm.password)
           })
-          this.$_D_common.showMessage({
+          this.$_Dcommon.showMessage({
             message: '密码修改成功',
             type: 'success'
           })
-          this.$_D_common.hideLoading()
+          this.$_Dcommon.hideLoading()
           this.$refs.security.resetFields()
         }
       })

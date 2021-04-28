@@ -93,16 +93,16 @@ export default {
     _login () {
       this.$refs.form.validate(async valid => {
         if (valid) {
-          this.$_D_common.showLoading('登录中...')
+          this.$_Dcommon.showLoading('登录中...')
           this.login({
             ...this.formModel,
             token: this.captchaToken,
             password: md5(this.formModel.password)
           }).then(async () => {
             this.$router.replace(this.$route.query.redirect || DEFAULT_INDEX_ROUTER)
-            this.$_D_common.showLoading('正在加载数据字典...')
+            this.$_Dcommon.showLoading('正在加载数据字典...')
             await this.$store.dispatch('system/dictionary/getTree')
-            this.$_D_common.hideLoading()
+            this.$_Dcommon.hideLoading()
           }).catch(error => {
             this._valid(error)
           })

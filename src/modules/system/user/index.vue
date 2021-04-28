@@ -124,9 +124,9 @@ export default {
   methods: {
     ...mapActions('system/user', ['getUserList', 'modifyStatus', 'resetPassword', 'allocationRole', 'delUser']),
     async init () {
-      this.$_D_common.showLoading('用户列表加载中...')
+      this.$_Dcommon.showLoading('用户列表加载中...')
       this.list = await this.getUserList()
-      this.$_D_common.hideLoading()
+      this.$_Dcommon.hideLoading()
     },
 
     // 显示角色弹窗
@@ -141,27 +141,27 @@ export default {
     _saveRole () {
       this.$refs.roleForm.validate(valid => {
         if (valid) {
-          this.$_D_common.showLoading('保存中...')
+          this.$_Dcommon.showLoading('保存中...')
           this.allocationRole({
             ...this.roleForm,
             id: this.selectedUser.id,
             role: this.roleForm.role.join(',')
           }).then(async () => {
             this._reset()
-            this.$_D_common.showMessage({
+            this.$_Dcommon.showMessage({
               type: 'success',
               message: '保存成功'
             })
-            this.$_D_common.showLoading('获取用户列表中...')
+            this.$_Dcommon.showLoading('获取用户列表中...')
             this.list = await this.getUserList()
-            this.$_D_common.hideLoading()
-          }).catch(() => this.$_D_common.hideLoading())
+            this.$_Dcommon.hideLoading()
+          }).catch(() => this.$_Dcommon.hideLoading())
         }
       })
     },
 
     _delUser (id) {
-      this.$_D_common.confirm({
+      this.$_Dcommon.confirm({
         title: '警告',
         message: '确认删除该用户吗？',
         type: 'warning',
@@ -170,7 +170,7 @@ export default {
             await this.delUser({
               id
             })
-            this.$_D_common.showMessage({
+            this.$_Dcommon.showMessage({
               type: 'success',
               message: '用户删除成功'
             })
@@ -182,7 +182,7 @@ export default {
 
     // 启用、禁用
     _modifyStatus (row, status) {
-      this.$_D_common.confirm({
+      this.$_Dcommon.confirm({
         title: '警告',
         message: `是否${status ? '启用' : '禁用'}该用户？`,
         type: 'warning',
@@ -194,9 +194,9 @@ export default {
               status,
             }).then(async () => {
               row.btnLoading = false
-              this.$_D_common.showLoading('用户列表加载中...')
+              this.$_Dcommon.showLoading('用户列表加载中...')
               this.list = await this.getUserList()
-              this.$_D_common.hideLoading()
+              this.$_Dcommon.hideLoading()
             }).catch(() => (row.btnLoading = false))
           }
         }
@@ -205,22 +205,22 @@ export default {
 
     // 重置密码
     _resetPassword (id) {
-      this.$_D_common.confirm({
+      this.$_Dcommon.confirm({
         title: '警告',
         message: '确认要将密码重置为：nkm-123456吗？',
         type: 'warning',
         callback: (action) => {
           if (action === 'confirm') {
-            this.$_D_common.showLoading('密码重置中...')
+            this.$_Dcommon.showLoading('密码重置中...')
             this.resetPassword({ id }).then(() => {
-              this.$_D_common.hideLoading()
-              this.$_D_common.showMessage({
+              this.$_Dcommon.hideLoading()
+              this.$_Dcommon.showMessage({
                 message: '重置成功，密码为：nkm-123456',
                 type: 'success',
                 showClose: true,
                 duration: 5000
               })
-            }).catch(() => this.$_D_common.hideLoading())
+            }).catch(() => this.$_Dcommon.hideLoading())
           }
         }
       })

@@ -23,7 +23,7 @@ import './components/XSvgIcon'
 Vue.config.productionTip = false
 
 // 全局方法
-Vue.prototype.$_D_common = {
+Vue.prototype.$_Dcommon = {
   showLoading: utils.showLoading,
   hideLoading: utils.hideLoading,
   showMessage: utils.showMessage,

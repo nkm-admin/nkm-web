@@ -106,16 +106,16 @@ export default {
     _updateInfo () {
       this.$refs.infoForm.validate(async valid => {
         if (valid) {
-          this.$_D_common.showLoading('保存中...')
+          this.$_Dcommon.showLoading('保存中...')
           await this.updateInfo(this.formModel)
           this.$store.commit('authen/UPDATE', this.formModel)
           this.$refs.infoForm.resetFields()
           this.init()
-          this.$_D_common.showMessage({
+          this.$_Dcommon.showMessage({
             message: '信息更新成功',
             type: 'success'
           })
-          this.$_D_common.hideLoading()
+          this.$_Dcommon.hideLoading()
         }
       })
     }

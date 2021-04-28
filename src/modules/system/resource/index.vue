@@ -104,9 +104,9 @@ export default {
   methods: {
     ...mapActions('system/resource', ['getResourceList', 'saveResource', 'delResource']),
     async init () {
-      this.$_D_common.showLoading('资源列表加载中...')
+      this.$_Dcommon.showLoading('资源列表加载中...')
       let data = await this.getResourceList()
-      this.$_D_common.hideLoading()
+      this.$_Dcommon.hideLoading()
       this.tree = sortTreeArr(deepTree(data))
     },
 
@@ -125,16 +125,16 @@ export default {
 
     // 删除资源
     _del (id) {
-      this.$_D_common.confirm({
+      this.$_Dcommon.confirm({
         title: '警告',
         message: '确认删除该资源吗？',
         type: 'warning',
         callback: async action => {
           if (action === 'confirm') {
-            this.$_D_common.showLoading('删除中...')
+            this.$_Dcommon.showLoading('删除中...')
             await this.delResource({ id })
             this.getResourceList()
-            this.$_D_common.hideLoading()
+            this.$_Dcommon.hideLoading()
           }
         }
       })
