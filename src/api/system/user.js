@@ -1,10 +1,10 @@
 import request from '@/request'
 export default {
   // 获取用户列表
-  getUserList (data) {
+  getUserList (params) {
     return request({
       url: '/system/user/list',
-      data
+      params
     })
   },
 

@@ -89,6 +89,9 @@ export default {
             },
             trigger: 'blur'
           }
+        ],
+        email: [
+          { required: true, message: '请输入邮箱', trigger: 'blur' }
         ]
       }
     }

@@ -4,18 +4,6 @@ const user = {
   state: {},
   mutations: {},
   actions: {
-    async getUserList () {
-      try {
-        let { data } = await API['system/user'].getUserList()
-        data.map(item => {
-          item.btnLoading = false
-        })
-        return Promise.resolve(data)
-      } catch (error) {
-        return Promise.reject(error)
-      }
-    },
-
     async delUser (context, reqData) {
       try {
         let { data } = await API['system/user'].del(reqData)

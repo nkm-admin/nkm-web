@@ -1,61 +1,52 @@
 <template>
   <div class="container">
     <el-button type="primary" class="m-b-15px" @click="isShowRegistered = true">新增用户</el-button>
-    <registered v-model="isShowRegistered" @on-success="init" />
-    <el-table :data="list" border class="w-100">
-      <el-table-column type="index" label="序号" align="center"></el-table-column>
-      <el-table-column prop="loginName" label="登录账号"></el-table-column>
-      <el-table-column prop="displayName" label="用户名称"></el-table-column>
-      <el-table-column label="账号状态" width="100" align="center">
-        <template v-slot="{ row }">
-          <x-dot-tag v-if="row.status === 1" type="success">启用</x-dot-tag>
-          <x-dot-tag v-else-if="row.status === 0" type="danger">禁用</x-dot-tag>
+
+    <registered v-model="isShowRegistered" @on-success="reload" />
+
+    <d-table ref="table" :request-method="init">
+      <template v-slot:status="{ row }">
+        <x-dot-tag v-if="row.status === 1" type="success">启用</x-dot-tag>
+        <x-dot-tag v-else-if="row.status === 0" type="danger">禁用</x-dot-tag>
+      </template>
+      <template v-slot:registeredTime="{ row }">{{ row.registeredTime | formatDate }}</template>
+      <template v-slot:lastLoginTime="{ row }">{{ row.lastLoginTime | formatDate }}</template>
+      <template v-slot:operation="{ row }">
+        <template v-if="row.isSystemAdmin">
+          <el-link type="primary" size="mini" @click="_allocationRole(row)">分配角色</el-link>
+          <el-divider direction="vertical"></el-divider>
+          <el-link type="primary" size="mini" @click="_resetPassword(row.id)">重置密码</el-link>
         </template>
-      </el-table-column>
-      <el-table-column label="注册时间" width="150">
-        <template v-slot="{ row }">{{ row.registeredTime | formatDate }}</template>
-      </el-table-column>
-      <el-table-column label="最后登录" width="150">
-        <template v-slot="{ row }">{{ row.lastLoginTime | formatDate }}</template>
-      </el-table-column>
-      <el-table-column label="操作" width="260" align="center">
-        <template v-slot="{ row }">
-          <template v-if="row.isSystemAdmin">
-            <el-link type="primary" size="mini" @click="_allocationRole(row)">分配角色</el-link>
-            <el-divider direction="vertical"></el-divider>
-            <el-link type="primary" size="mini" @click="_resetPassword(row.id)">重置密码</el-link>
+        <template v-else>
+          <el-link type="primary" size="mini" @click="_allocationRole(row)">分配角色</el-link>
+          <el-divider direction="vertical"></el-divider>
+          <template>
+            <el-link
+              v-if="row.status === 1"
+              type="primary"
+              size="mini"
+              :loading="row.btnLoading"
+              @click="_modifyStatus(row, 0)"
+            >
+              禁用
+            </el-link>
+            <el-link
+              v-else-if="row.status === 0"
+              type="primary"
+              size="mini"
+              :loading="row.btnLoading"
+              @click="_modifyStatus(row, 1)"
+            >
+              启用
+            </el-link>
           </template>
-          <template v-else>
-            <el-link type="primary" size="mini" @click="_allocationRole(row)">分配角色</el-link>
-            <el-divider direction="vertical"></el-divider>
-            <template>
-              <el-link
-                v-if="row.status === 1"
-                type="primary"
-                size="mini"
-                :loading="row.btnLoading"
-                @click="_modifyStatus(row, 0)"
-              >
-                禁用
-              </el-link>
-              <el-link
-                v-else-if="row.status === 0"
-                type="primary"
-                size="mini"
-                :loading="row.btnLoading"
-                @click="_modifyStatus(row, 1)"
-              >
-                启用
-              </el-link>
-            </template>
-            <el-divider direction="vertical"></el-divider>
-            <el-link type="primary" size="mini" @click="_delUser(row.id)">删除</el-link>
-            <el-divider direction="vertical"></el-divider>
-            <el-link type="primary" size="mini" @click="_resetPassword(row.id)">重置密码</el-link>
-          </template>
+          <el-divider direction="vertical"></el-divider>
+          <el-link type="primary" size="mini" @click="_delUser(row.id)">删除</el-link>
+          <el-divider direction="vertical"></el-divider>
+          <el-link type="primary" size="mini" @click="_resetPassword(row.id)">重置密码</el-link>
         </template>
-      </el-table-column>
-    </el-table>
+      </template>
+    </d-table>
 
     <!-- 角色分配开始 -->
     <el-dialog
@@ -89,6 +80,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import Registered from './components/registered'
+import API from '@/api'
 export default {
   name: 'User',
   components: {
@@ -118,15 +110,33 @@ export default {
       roleList: state => state.list
     })
   },
-  created () {
-    this.init()
-  },
   methods: {
-    ...mapActions('system/user', ['getUserList', 'modifyStatus', 'resetPassword', 'allocationRole', 'delUser']),
-    async init () {
+    ...mapActions('system/user', ['modifyStatus', 'resetPassword', 'allocationRole', 'delUser']),
+
+    async init(params) {
       this.$_Dcommon.showLoading('用户列表加载中...')
-      this.list = await this.getUserList()
+      const { data, count } = await API['system/user'].getUserList(params)
+      data.map(item => {
+        item.btnLoading = false
+      })
       this.$_Dcommon.hideLoading()
+      return {
+        header: [
+          { name: '序号', type: 'index', align: 'center' },
+          { name: '登录账号', column: 'loginName' },
+          { name: '用户名称', column: 'displayName' },
+          { name: '账号状态', column: 'status', width: 100, align: 'center'  },
+          { name: '注册时间', column: 'registeredTime', width: 150, align: 'center'  },
+          { name: '最后登录', column: 'lastLoginTime', width: 150, align: 'center'  },
+          { name: '操作', column: 'operation', width: 260, align: 'center'  }
+        ],
+        data,
+        count
+      }
+    },
+
+    reload() {
+      this.$refs.table.reload()
     },
 
     // 显示角色弹窗
@@ -152,9 +162,7 @@ export default {
               type: 'success',
               message: '保存成功'
             })
-            this.$_Dcommon.showLoading('获取用户列表中...')
-            this.list = await this.getUserList()
-            this.$_Dcommon.hideLoading()
+            this.reload()
           }).catch(() => this.$_Dcommon.hideLoading())
         }
       })
@@ -194,9 +202,7 @@ export default {
               status,
             }).then(async () => {
               row.btnLoading = false
-              this.$_Dcommon.showLoading('用户列表加载中...')
-              this.list = await this.getUserList()
-              this.$_Dcommon.hideLoading()
+              this.reload()
             }).catch(() => (row.btnLoading = false))
           }
         }
@@ -239,6 +245,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-</style>
