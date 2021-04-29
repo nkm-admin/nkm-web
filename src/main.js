@@ -14,6 +14,17 @@ Vue.use(ElementUI, {
   size: 'small'
 })
 
+import DTable from '@xuanmo/d-table'
+Vue.use(DTable, {
+  tableConfig: {
+    border: true
+  },
+  props: {
+    total: 'count',
+    pageSize: 'limit'
+  }
+})
+
 // 引入scss
 import './assets/scss/index.scss'
 
