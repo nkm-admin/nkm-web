@@ -1,8 +1,6 @@
 import store from '@/store'
 
-const isObject = obj => Object.prototype.toString.call(obj) === '[object Object]'
-
-export { isObject }
+export { isObject, isEmpty, deepCopy, searchParams } from '@xuanmo/javascript-utils'
 
 export const showLoading = config => store.dispatch('showLoading', config)
 
@@ -11,45 +9,6 @@ export const hideLoading = () => store.dispatch('hideLoading')
 export const showMessage = config => store.dispatch('showMessage', config)
 
 export const confirm = config => store.dispatch('showConfirm', config)
-
-// 获取查询参数
-export const getQueryParams = params => {
-  const obj = {}
-  const _params = window.decodeURIComponent(params)
-  _params.split('&').map(item => {
-    item.replace(/([^?&]*)=([^?&]*)/, (match, $1, $2) => {
-      obj[$1] = $2
-    })
-  })
-  return obj
-}
-
-// 深拷贝
-export const deepCopy = data => {
-  if (typeof data === 'object') {
-    let result = Array.isArray(data) ? [] : {}
-    for (const i in data) {
-      result[i] = deepCopy(data[i])
-    }
-    return result
-  }
-  return data
-}
-
-// 倒计时
-export function countDown (during, duringCallback, endCallback, timer) {
-  during = +during
-  if (during > 0) {
-    duringCallback(during)
-    during--
-    window[timer] = setTimeout(() => {
-      countDown(during, duringCallback, endCallback, timer)
-    }, 1000)
-  } else {
-    clearTimeout(window[timer])
-    endCallback()
-  }
-}
 
 /**
  * 一维数组转换为树形结构
@@ -85,17 +44,4 @@ export function sortTreeArr (arr) {
   }
 
   return sortArr(arr)
-}
-
-/**
- * 判断是否为空
- * @param {*} value 数据源
- * @return {boolean}
- */
-export function isEmpty (value) {
-  if (Array.isArray(value)) return value.length === 0
-
-  if (isObject(value)) return JSON.stringify(value) === '{}'
-
-  return [null, undefined, ''].includes(value)
 }

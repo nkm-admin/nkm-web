@@ -11,8 +11,9 @@
     "push": "git push && git push gitlab master"
   },
   "dependencies": {
-    "@xuanmo/d-table": "^0.0.7",
+    "@xuanmo/d-table": "^1.0.0",
     "@xuanmo/datejs": "^1.0.3",
+    "@xuanmo/javascript-utils": "^0.0.5",
     "axios": "^0.21.1",
     "crypto-js": "^4.0.0",
     "element-ui": "^2.13.2",
