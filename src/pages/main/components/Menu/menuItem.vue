@@ -39,7 +39,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/deep/ .el-menu-item [class^="x-icon-"] {
+::v-deep .el-menu-item [class^="x-icon-"] {
   width: 24px;
   margin-right: 5px;
   text-align: center;

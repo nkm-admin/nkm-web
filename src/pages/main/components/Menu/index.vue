@@ -34,7 +34,7 @@ export default {
   border: 0;
 
   &.el-menu--collapse {
-    /deep/ .el-submenu {
+    ::v-deep .el-submenu {
       .title,
       .el-submenu__icon-arrow {
         display: none;

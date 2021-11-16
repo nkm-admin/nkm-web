@@ -124,7 +124,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/deep/ .avatar-text {
+::v-deep .avatar-text {
   margin-bottom: 0;
 }
 

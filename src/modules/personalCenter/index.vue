@@ -64,7 +64,7 @@ export default {
     font-size: 16px;
   }
   .setting-wrapper {
-    /deep/ .el-card__body {
+    ::v-deep .el-card__body {
       padding: 10px 0;
     }
     .list-wrapper {
