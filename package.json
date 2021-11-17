@@ -14,7 +14,7 @@
     "@xuanmo/d-table": "^1.0.0",
     "@xuanmo/datejs": "^1.0.3",
     "@xuanmo/javascript-utils": "^0.0.5",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "crypto-js": "^4.0.0",
     "element-ui": "^2.13.2",
     "path-to-regexp": "^6.1.0",
