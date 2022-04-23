@@ -36,7 +36,8 @@
 <script>
 import { mapActions } from 'vuex'
 import { matchPassword, matchName, matchLoginName } from '@/utils/regexp'
-import { md5 } from '@/utils/crypto'
+import { AESHelper } from '@/utils/crypto'
+
 export default {
   name: 'Registered',
   props: {
@@ -122,7 +123,7 @@ export default {
           await this.registered({
             ...this.formModel,
             avatar: this.avatarList[this.selectedAvatarIndex],
-            password: md5(this.formModel.password)
+            password: AESHelper.encrypt(this.formModel.password)
           })
           this.$_Dcommon.hideLoading()
           this._reset()

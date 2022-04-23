@@ -1,23 +1,26 @@
 <template>
-  <div class="flex container min-h-100">
+  <div class="flex container h-100">
     <div class="tree-wrapper min-h-100">
-      <el-button type="primary" class="m-b-15px" @click="_add">新增节点</el-button>
-      <el-tree
-        ref="tree"
-        node-key="id"
-        :data="tree"
-        check-strictly
-        show-checkbox
-        highlight-current
-        default-expand-all
-        :check-on-click-node="false"
-        :expand-on-click-node="false"
-        :props="defaultProps"
-        :render-content="_renderContent"
-        @check="_setCheckNodes"
-        @node-click="_selectedCurrentNode"
-      >
-      </el-tree>
+      <div>
+        <el-button type="primary" class="m-b-15px" @click="_add">新增节点</el-button>
+      </div>
+      <el-scrollbar noresize wrap-style="overflow-x: hidden">
+        <el-tree
+          ref="tree"
+          node-key="id"
+          :data="tree"
+          check-strictly
+          show-checkbox
+          highlight-current
+          default-expand-all
+          :check-on-click-node="false"
+          :expand-on-click-node="false"
+          :props="defaultProps"
+          :render-content="_renderContent"
+          @check="_setCheckNodes"
+          @node-click="_selectedCurrentNode"
+        />
+      </el-scrollbar>
     </div>
     <div class="edit-wrapper">
       <el-form
@@ -34,20 +37,21 @@
           <el-input v-model="formModel.name"></el-input>
         </el-form-item>
         <el-form-item label="字典编码" prop="code">
-          <el-input v-model="formModel.code"></el-input>
+          <el-input v-model="formModel.code" :disabled="formModel.codeDisabled"></el-input>
+        </el-form-item>
+        <el-form-item label="字典值" prop="value">
+          <el-input v-model="formModel.value"></el-input>
         </el-form-item>
         <el-form-item label="父级字典" prop="parentId">
-          <el-select v-model="formModel.parentId" clearable filterable placeholder="请选择父级字典" class="w-100">
-            <el-option :value="0" label="无"></el-option>
-            <el-option
-              v-for="item in flatList"
-              :key="item.id"
-              :value="item.id"
-              :label="item.name"
-            >
-              {{ item.name }}
-            </el-option>
-          </el-select>
+          <x-select-tree
+            v-model="formModel.parentId"
+            :data="selectTree"
+            clearable
+            class="w-100"
+            :tree-props="{
+              label: 'name'
+            }"
+          />
         </el-form-item>
         <el-form-item label="排序" prop="sort">
           <el-input v-model="formModel.sort"></el-input>
@@ -64,6 +68,7 @@
 import { mapState, mapActions } from 'vuex'
 export default {
   name: 'Dictionary',
+
   data () {
     return {
       title: '新增字典',
@@ -75,7 +80,8 @@ export default {
       formModel: {
         name: '',
         code: '',
-        parentId: 0,
+        value: '',
+        parentId: '',
         sort: 0
       },
       formRules: {
@@ -91,14 +97,22 @@ export default {
       }
     }
   },
+
   computed: {
-    ...mapState('system/dictionary', ['tree'])
+    ...mapState('system/dictionary', ['tree']),
+
+    selectTree() {
+      return [{ id: 0, name: '根节点' }, ...this.tree]
+    }
   },
+
   created () {
     this.init()
   },
+
   methods: {
     ...mapActions('system/dictionary', ['getTree', 'save', 'del']),
+
     async init () {
       this.$_Dcommon.showLoading('数据字典加载中...')
       await this.getTree()
@@ -125,16 +139,16 @@ export default {
             {
               !data.disabled &&
               <span>
-                <el-tooltip content="添加子节点" placement="bottom" enterable={ false }>
-                  <i class="el-icon-circle-plus-outline" onClick={ $event => this._add($event, data) }></i>
+                <el-tooltip content="添加子节点" placement="bottom" enterable={false}>
+                  <i class="el-icon-circle-plus-outline" onClick={ $event => this._add($event, data) } />
                 </el-tooltip>
-                <el-tooltip content="删除子节点" placement="bottom" enterable={ false }>
+                <el-tooltip content="删除子节点" placement="bottom" enterable={false}>
                   <i
                     class="m-l-10px el-icon-circle-close"
                     onClick={
                       $event => !data.disabled && this._del($event, data.id)
                     }
-                  ></i>
+                  />
                 </el-tooltip>
               </span>
             }
@@ -211,11 +225,19 @@ export default {
 <style lang="scss" scoped>
 .container {
   padding: 0 $content-padding;
+  overflow: hidden;
 }
 .tree-wrapper {
-  width: 25%;
+  display: flex;
+  flex-direction: column;
+  width: 30%;
   padding: $content-padding $content-padding $content-padding 0;
   border-right: 1px solid var(--color-border);
+  box-sizing: border-box;
+
+  ::v-deep .el-scrollbar__wrap {
+    overflow-x: hidden;
+  }
 }
 .edit-wrapper {
   padding: $content-padding;

@@ -21,7 +21,8 @@
 <script>
 import { matchPassword } from '@/utils/regexp'
 import { mapActions } from 'vuex'
-import { md5 } from '@/utils/crypto'
+import { AESHelper } from '@/utils/crypto'
+
 export default {
   name: 'Security',
   data () {
@@ -66,7 +67,7 @@ export default {
         if (valid) {
           this.$_Dcommon.showLoading('保存中...')
           await this.modifyPassword({
-            password: md5(this.securityForm.password)
+            password: AESHelper.encrypt(this.securityForm.password)
           })
           this.$_Dcommon.showMessage({
             message: '密码修改成功',

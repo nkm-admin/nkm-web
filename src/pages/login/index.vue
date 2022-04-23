@@ -29,7 +29,7 @@
 <script>
 import { mapActions } from 'vuex'
 import { matchLoginName, matchPassword } from '@/utils/regexp'
-import { md5 } from '@/utils/crypto'
+import { AESHelper } from '@/utils/crypto'
 import { DEFAULT_INDEX_ROUTER } from '@/settings'
 
 export default {
@@ -97,7 +97,7 @@ export default {
           this.login({
             ...this.formModel,
             token: this.captchaToken,
-            password: md5(this.formModel.password)
+            password: AESHelper.encrypt(this.formModel.password)
           }).then(async () => {
             this.$router.replace(this.$route.query.redirect || DEFAULT_INDEX_ROUTER)
             this.$_Dcommon.showLoading('正在加载数据字典...')
