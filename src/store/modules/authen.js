@@ -6,7 +6,7 @@ const LOGOUT = 'LOGOUT'
 const UPDATE = 'UPDATE'
 
 // 加载本地数据
-const userInfo = JSON.parse(AESHelper.decrypt(sessionStorage.getItem('userInfo')) || '{}')
+const userInfo = JSON.parse(AESHelper.decrypt(localStorage.getItem('userInfo')) || '{}')
 
 const authen = {
   state: {
@@ -17,7 +17,7 @@ const authen = {
       for (const [_key, _value] of Object.entries(data)) {
         state[_key] = _value
       }
-      sessionStorage.setItem('userInfo', AESHelper.encrypt(data))
+      localStorage.setItem('userInfo', AESHelper.encrypt(data))
     },
     [LOGOUT] (state) {
       state.userInfo = {}
@@ -25,13 +25,13 @@ const authen = {
       state.menuUrls = []
       state.token = ''
       state.btnCodes = []
-      sessionStorage.clear()
+      localStorage.clear()
     },
     [UPDATE] (state, data) {
       for (let [key, value] of Object.entries(data)) {
         state.userInfo[key] = value
       }
-      sessionStorage.setItem('userInfo', AESHelper.encrypt({
+      localStorage.setItem('userInfo', AESHelper.encrypt({
         ...state,
         userInfo: {
           ...state.userInfo,
